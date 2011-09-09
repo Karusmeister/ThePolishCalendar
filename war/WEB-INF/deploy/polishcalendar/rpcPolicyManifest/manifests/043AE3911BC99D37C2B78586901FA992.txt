@@ -1,0 +1,2 @@
+serviceClass: com.dev.calendar.view.client.GreetingService
+path: D1ECF0B9754CFC4C60F5AC9478BCF250.gwt.rpc
