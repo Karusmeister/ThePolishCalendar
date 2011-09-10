@@ -25,7 +25,9 @@ public class PolishCalendarDev implements EntryPoint {
 		//Canvas content = search_page.build();
 		
 		CalendarPage caldendar_page = new CalendarPage();
-		DockPanel content = caldendar_page.build();
+		Canvas content = caldendar_page.build();
+		content.setWidth(1000);
+		content.setHeight(800);
 		
 		RootPanel rootPanel = RootPanel.get("testWindow");
 		rootPanel.add(content);

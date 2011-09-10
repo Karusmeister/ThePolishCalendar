@@ -41,7 +41,6 @@ public class ShortcutWindow {
 		
 		
 		// Setting main panel
-		scwindow_main_panel.setWidth(400);
 		scwindow_main_panel.setMembersMargin(5);
 		scwindow_main_panel.setLayoutMargin(10);
 		scwindow_main_panel.setShowEdges(true);

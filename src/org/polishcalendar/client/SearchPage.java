@@ -3,6 +3,7 @@ package org.polishcalendar.client;
 import org.polishcalendar.client.MockData.OrganizationRecord;
 import org.polishcalendar.client.MockData.PreferenceRecord;
 
+import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.SelectionAppearance;
 import com.smartgwt.client.types.SelectionStyle;
 import com.smartgwt.client.widgets.Button;
@@ -115,6 +116,7 @@ public class SearchPage {
 			@Override
 			public void onClick(ClickEvent event) {
 				if (organizations_select != null) {
+					organizations_select.deselectAllRecords();
 					OrganizationRecord[] records = MockData.getOrganizations();
 					for (OrganizationRecord record : records) {
 						boolean selected = record.getFollow();
@@ -125,6 +127,7 @@ public class SearchPage {
 					}
 				}
 				if (preferences_select != null) {
+					preferences_select.deselectAllRecords();
 					PreferenceRecord[] records = MockData.getPreferences();
 					for (PreferenceRecord record : records) {
 						boolean selected = record.getSelected();
@@ -145,9 +148,24 @@ public class SearchPage {
 			}
 		});
 		
+		Button back_button = new Button("Go Back");
+		back_button.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				RootPanel rootPanel = RootPanel.get("testWindow");
+				rootPanel.clear();
+				CalendarPage caldendar_page = new CalendarPage();
+				Canvas content = caldendar_page.build();
+				content.setWidth(1000);
+				content.setHeight(800);
+				rootPanel.add(content);
+			}
+		});
+		
 		button_layout.addMember(save_button);
 		button_layout.addMember(default_button);
 		button_layout.addMember(search_button);
+		button_layout.addMember(back_button);
 		
 		return button_layout;
 	}

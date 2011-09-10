@@ -1,43 +1,144 @@
 package org.polishcalendar.client;
 
-import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Canvas;
-import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.calendar.Calendar;
-import com.smartgwt.client.widgets.form.fields.ComboBoxItem;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 public class CalendarPage {
 
-	public DockPanel build() {
+	public Canvas build() {
 		
-		DockPanel mainPanel = new DockPanel();
+		Canvas top_panel = buildTopPanel();
+		Canvas bottom_panel = buildBottomPanel();
+		Canvas main_panel = buildMainPanel();
 		
-		HLayout upperToolbar = new HLayout();
+		// layouting 
+		VLayout main_layout = new VLayout();
+		main_layout.setMembersMargin(10);
 		
-		IButton logoutButton = new IButton("Logout");
-	//	logoutButton.setAlign( Alignment.RIGHT);
-		IButton settingsButton = new IButton("Account Settings");
-	//	settingsButton.setAlign(Alignment.RIGHT);
+		top_panel.setWidth100();
+		top_panel.setHeight("10%");
+		main_layout.addMember(top_panel);
 		
-		ComboBoxItem searchBox = new ComboBoxItem();
+		main_panel.setWidth100();
+		main_panel.setHeight("*");
+		main_layout.addMember(main_panel);
 		
-		upperToolbar.addMember(settingsButton);
-		upperToolbar.addMember(settingsButton);
-		upperToolbar.addMember(logoutButton);	
+		return main_layout;
+	}
+	
+	
+	private Canvas buildTopPanel() {
 		
-		Calendar calendar = new Calendar();
-		calendar.setAddDropValues(true);
-		calendar.setWidth("70%");
-		calendar.setHeight("80%");
+		HLayout upper_toolbar = new HLayout();
+		Button logout_button = new Button("Logout");
+		Button search_button = new Button("Search Events");
+		Button settings_button = new Button("Account Settings");
+		Button about_button = new Button("About us");
+		Button contant_button = new Button("Contact us");
 		
+		// Creating appearance 
+		// Each button would stretch for stretch% of available width
+		String stretch = "20%";
+		logout_button.setWidth(stretch);  
+		logout_button.setShowRollOver(true);  
+		logout_button.setShowDisabled(true);  
+		logout_button.setShowDown(true);  
+		
+		search_button.setWidth(stretch);  
+		search_button.setShowRollOver(true);  
+		search_button.setShowDisabled(true);  
+		search_button.setShowDown(true);
+		
+		settings_button.setWidth(stretch);  
+		settings_button.setShowRollOver(true);  
+		settings_button.setShowDisabled(true);  
+		settings_button.setShowDown(true);  
+		
+		about_button.setWidth(stretch);  
+		about_button.setShowRollOver(true);  
+		about_button.setShowDisabled(true);  
+		about_button.setShowDown(true);  
+		
+		contant_button.setWidth(stretch);  
+		contant_button.setShowRollOver(true);  
+		contant_button.setShowDisabled(true);  
+		contant_button.setShowDown(true); 
+		
+		// Creating handlers
+		// Setting all listeners
+		search_button.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) { 
+				RootPanel rootPanel = RootPanel.get("testWindow");
+				rootPanel.clear();
+				SearchPage search_page = new SearchPage();
+				Canvas content = search_page.build();
+				rootPanel.add(content);
+			}
+		});
+		
+		upper_toolbar.addMember(search_button);
+		upper_toolbar.addMember(settings_button);
+		upper_toolbar.addMember(about_button);
+		upper_toolbar.addMember(contant_button);
+		upper_toolbar.addMember(logout_button);
+		
+		return upper_toolbar;
+	}
+	
+	
+	private Canvas buildMainPanel() {
+		
+		HLayout main_layout = new HLayout();
+		main_layout.setMembersMargin(5);
+		
+		// Creating short_cut window
 		ShortcutWindow sc_window = new ShortcutWindow();
 		Canvas scwindow_main_panel = sc_window.buildShortcutPanel();
+		scwindow_main_panel.setWidth("30%");
+		scwindow_main_panel.setHeight("40%");
 		
-		mainPanel.add(upperToolbar,DockPanel.NORTH);
-		mainPanel.add(calendar, DockPanel.EAST);
-		mainPanel.add(scwindow_main_panel, DockPanel.EAST);
+		// Creating calendar
+		Calendar calendar = new Calendar();
+		calendar.setAddDropValues(true);
+		calendar.setWidth("*");
+		calendar.setHeight("90%");
 		
-		return mainPanel;
+		main_layout.addMember(scwindow_main_panel);
+		main_layout.addMember(calendar);
+		
+		return main_layout;
 	}
+	
+	
+	private Canvas buildBottomPanel() {
+		
+		// TODO stub
+		
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
