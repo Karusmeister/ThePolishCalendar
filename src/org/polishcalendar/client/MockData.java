@@ -8,7 +8,15 @@ public class MockData {
 
 	private static OrganizationRecord[] org_records = null;
 	private static EventRecord[] event_records = null;
-	private static PreferenceRecord[] preference_records = null;
+	
+	// preferences
+	private static PreferenceRecord[] social_records = null;
+	private static PreferenceRecord[] cultural_records = null;
+	private static PreferenceRecord[] political_records = null;
+	private static PreferenceRecord[] other_records = null;
+	private static PreferenceRecord[] location_records = null;
+	private static PreferenceRecord[] time_records = null;
+	
 	private static UserRecord valid_user = null;
 	
 	public static OrganizationRecord[] getOrganizations() {
@@ -46,21 +54,107 @@ public class MockData {
 		return event_records;
 	}
 	
-	public static PreferenceRecord[] getPreferences() {
-		if (preference_records == null) {
-			PreferenceRecord r1 = new PreferenceRecord("Music" , false , 1);
-			PreferenceRecord r2 = new PreferenceRecord("Student" , true , 2);
-			PreferenceRecord r3 = new PreferenceRecord("Pubbing", false , 3);
-			PreferenceRecord r4 = new PreferenceRecord("Politics" , true , 4);
+	public static PreferenceRecord[] getSocialPreferences() {
+		if (social_records == null) {
+			PreferenceRecord r1 = new PreferenceRecord("Pubbing" , false , 1);
+			PreferenceRecord r2 = new PreferenceRecord("Clubbing" , true , 2);
+			PreferenceRecord r3 = new PreferenceRecord("Outdoor Events", false , 3);
+			PreferenceRecord r4 = new PreferenceRecord("Drinks" , true , 4);
+			PreferenceRecord r5 = new PreferenceRecord("Other Organized Evenets" , true , 5);
+
 			
-			preference_records = new PreferenceRecord[4];
-			preference_records[0] = r1;
-			preference_records[1] = r2;
-			preference_records[2] = r3;
-			preference_records[3] = r4;
+			social_records = new PreferenceRecord[5];
+			social_records[0] = r1;
+			social_records[1] = r2;
+			social_records[2] = r3;
+			social_records[3] = r4;
+			social_records[4] = r5;
 		}
 		
-		return preference_records;
+		return social_records;
+	}
+	
+	public static PreferenceRecord[] getCulturalPreferences() {
+		if (cultural_records == null) {
+			PreferenceRecord r1 = new PreferenceRecord("Concerts" , false , 1);
+			PreferenceRecord r2 = new PreferenceRecord("Theathre" , true , 2);
+			PreferenceRecord r3 = new PreferenceRecord("Exhibitions", false , 3);
+			PreferenceRecord r4 = new PreferenceRecord("Formal dinners" , true , 4);
+			PreferenceRecord r5 = new PreferenceRecord("Cinema" , true , 5);
+			
+			cultural_records = new PreferenceRecord[5];
+			cultural_records[0] = r1;
+			cultural_records[1] = r2;
+			cultural_records[2] = r3;
+			cultural_records[3] = r4;
+			cultural_records[4] = r5;
+		}
+		
+		return cultural_records;
+	}
+	
+	public static PreferenceRecord[] getPoliticalPreferences() {
+		if (political_records == null) {
+			PreferenceRecord r1 = new PreferenceRecord("Conferences" , false , 1);
+			PreferenceRecord r2 = new PreferenceRecord("Talks" , true , 2);
+			PreferenceRecord r3 = new PreferenceRecord("Meetings", false , 3);
+			
+			political_records = new PreferenceRecord[3];
+			political_records[0] = r1;
+			political_records[1] = r2;
+			political_records[2] = r3;
+		}
+		
+		return political_records;
+	}
+	
+	public static PreferenceRecord[] getOtherPreferences() {
+		if (other_records == null) {
+			PreferenceRecord r1 = new PreferenceRecord("IT" , false , 1);
+			PreferenceRecord r2 = new PreferenceRecord("Business" , true , 2);
+			PreferenceRecord r3 = new PreferenceRecord("Corporate", false , 3);
+			PreferenceRecord r4 = new PreferenceRecord("Other Organized Evenets" , true , 4);
+			
+			other_records = new PreferenceRecord[4];
+			other_records[0] = r1;
+			other_records[1] = r2;
+			other_records[2] = r3;
+			other_records[3] = r4;
+		}
+		
+		return other_records;
+	}
+	
+	public static PreferenceRecord[] getTimePreferences() {
+		if (time_records == null) {
+			PreferenceRecord r1 = new PreferenceRecord("Morning" , false , 1);
+			PreferenceRecord r2 = new PreferenceRecord("Afternoon" , true , 2);
+			PreferenceRecord r3 = new PreferenceRecord("Evening", false , 3);
+		
+			time_records = new PreferenceRecord[4];
+			time_records[0] = r1;
+			time_records[1] = r2;
+			time_records[2] = r3;
+		}
+		
+		return time_records;
+	}
+	
+	public static PreferenceRecord[] getLocationPreferences() {
+		if (location_records == null) {
+			PreferenceRecord r1 = new PreferenceRecord("Poland" , false , 1);
+			PreferenceRecord r2 = new PreferenceRecord("UK" , true , 2);
+			PreferenceRecord r3 = new PreferenceRecord("USA", false , 3);
+			PreferenceRecord r4 = new PreferenceRecord("Other", false , 4);
+		
+			location_records = new PreferenceRecord[4];
+			location_records[0] = r1;
+			location_records[1] = r2;
+			location_records[2] = r3;
+			location_records[3] = r4;
+		}
+		
+		return location_records;
 	}
 	
 	public static UserRecord getValidUser() {

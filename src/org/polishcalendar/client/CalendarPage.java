@@ -37,7 +37,7 @@ public class CalendarPage {
 		
 		HLayout upper_toolbar = new HLayout();
 		Button logout_button = new Button("Logout");
-		Button search_button = new Button("Search Events");
+		Button search_button = new Button("Preferences");
 		Button settings_button = new Button("Account Settings");
 		Button about_button = new Button("About us");
 		Button contant_button = new Button("Contact us");
@@ -77,7 +77,7 @@ public class CalendarPage {
 			public void onClick(ClickEvent event) { 
 				RootPanel rootPanel = RootPanel.get("testWindow");
 				rootPanel.clear();
-				SearchPage search_page = new SearchPage();
+				PreferencesPage search_page = new PreferencesPage();
 				Canvas content = search_page.build();
 				rootPanel.add(content);
 			}
@@ -98,11 +98,26 @@ public class CalendarPage {
 		HLayout main_layout = new HLayout();
 		main_layout.setMembersMargin(5);
 		
+		//
+		// Creating vertical panel on the right
+		//
+		VLayout left_panel = new VLayout();
+		left_panel.setWidth("30%");
+		left_panel.setHeight100();
+		left_panel.setMembersMargin(5);
+		
 		// Creating short_cut window
 		ShortcutWindow sc_window = new ShortcutWindow();
 		Canvas scwindow_main_panel = sc_window.buildShortcutPanel();
-		scwindow_main_panel.setWidth("30%");
-		scwindow_main_panel.setHeight("40%");
+		scwindow_main_panel.setWidth100();
+		scwindow_main_panel.setHeight("20%");
+		left_panel.addMember(scwindow_main_panel);
+		
+		// Creating filter buttons
+		Canvas buttons = createFilterButtons();
+		buttons.setWidth100();
+		buttons.setHeight("30%");
+		left_panel.addMember(buttons);
 		
 		// Creating calendar
 		Calendar calendar = new Calendar();
@@ -110,7 +125,7 @@ public class CalendarPage {
 		calendar.setWidth("*");
 		calendar.setHeight("90%");
 		
-		main_layout.addMember(scwindow_main_panel);
+		main_layout.addMember(left_panel);
 		main_layout.addMember(calendar);
 		
 		return main_layout;
@@ -123,6 +138,30 @@ public class CalendarPage {
 		
 		return null;
 	}
+	
+	
+	private Canvas createFilterButtons() {
+		
+		VLayout buttons_layout = new VLayout();
+		buttons_layout.setMembersMargin(5);
+		buttons_layout.setLayoutMargin(10);
+		buttons_layout.setShowEdges(true);
+		
+		Button all_events = new Button("Show All Events");
+		all_events.setWidth100();
+		buttons_layout.addMember(all_events);
+		
+		Button attending_events = new Button("Show Attending Events");
+		attending_events.setWidth100();
+		buttons_layout.addMember(attending_events);
+		
+		Button preference_events = new Button("Show Preference Events");
+		preference_events.setWidth100();
+		buttons_layout.addMember(preference_events);
+		
+		return buttons_layout;
+	}
+  
 	
 	
 	
