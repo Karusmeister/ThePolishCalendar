@@ -145,7 +145,6 @@ public class CalendarPage {
 		VLayout buttons_layout = new VLayout();
 		buttons_layout.setMembersMargin(5);
 		buttons_layout.setLayoutMargin(10);
-		buttons_layout.setShowEdges(true);
 		
 		Button all_events = new Button("Show All Events");
 		all_events.setWidth100();
@@ -161,23 +160,4 @@ public class CalendarPage {
 		
 		return buttons_layout;
 	}
-  
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
