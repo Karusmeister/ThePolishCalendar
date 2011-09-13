@@ -211,7 +211,7 @@ public class MockData {
 			setAttribute("name" , name);
 		}
 		public String getOrganizedBy() {
-			return getAttributeAsString("oranized_by");
+			return getAttributeAsString("organized_by");
 		}
 		public void setOrganizedBy(String organizedBy) {
 			setAttribute("organized_by" , organizedBy);

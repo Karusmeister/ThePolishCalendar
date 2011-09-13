@@ -1,8 +1,12 @@
 package org.polishcalendar.client;
 
+import java.util.Date;
+
 import org.polishcalendar.client.MockData.EventRecord;
 import org.polishcalendar.client.MockData.OrganizationRecord;
+import org.polishcalendar.ds.EventDataSource;
 
+import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.SelectionAppearance;
 import com.smartgwt.client.types.SelectionStyle;
@@ -168,21 +172,41 @@ public class ShortcutWindow {
 	}
 	
 	private Canvas buildEventsPopup() {
-		Canvas canvas = new Canvas();
+		VLayout layout = new VLayout();
 		
         final ListGrid events_grid = new ListGrid();  
         events_grid.setWidth100();  
-        events_grid.setHeight100();  
-  
-        ListGridField nameField = new ListGridField("name", "Event");  
-        ListGridField organizationField = new ListGridField("organized_by", "Organized By");  
-        ListGridField dateField = new ListGridField("date", "Date");  
-        events_grid.setFields(nameField, organizationField, dateField);
-        EventRecord[] records = (EventRecord[]) MockData.getEvents();
-        events_grid.setData(records);
+        //events_grid.setHeight100();  
         
-        canvas.addChild(events_grid);
-		
-		return canvas;
+        // test button
+        Button test = new Button("Test");
+        test.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				DataSource events_ds = EventDataSource.getEventDS();
+				Date common_date = new Date();
+				EventRecord record = new EventRecord("Test" , "Test" , common_date , 5);
+				events_ds.addData(record);
+			}
+		});
+  
+        //ListGridField nameField = new ListGridField("name", "Event");  
+        //ListGridField organizationField = new ListGridField("organized_by", "Organized By");  
+        //ListGridField dateField = new ListGridField("date", "Date");  
+        //events_grid.setFields(nameField, organizationField, dateField);
+        DataSource events_ds = EventDataSource.getEventDS();
+        events_grid.setDataSource(events_ds);
+        events_grid.setAutoFetchData(true);
+        
+        EventRecord[] records = (EventRecord[]) MockData.getEvents();
+        for (EventRecord record : records) {
+        	events_ds.addData(record);
+        }
+        //events_grid.setData(records);
+        
+        layout.addMember(events_grid);
+        layout.addMember(test);
+        
+		return layout;
 	}
 }
