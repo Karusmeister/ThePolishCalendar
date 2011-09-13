@@ -75,11 +75,9 @@ public class CalendarPage {
 		search_button.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) { 
-				RootPanel rootPanel = RootPanel.get("testWindow");
-				rootPanel.clear();
 				PreferencesPage search_page = new PreferencesPage();
 				Canvas content = search_page.build();
-				rootPanel.add(content);
+				PolishCalendarDev.replaceOutmostContent(content);
 			}
 		});
 		

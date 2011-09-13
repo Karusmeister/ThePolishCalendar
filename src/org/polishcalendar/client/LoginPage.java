@@ -22,17 +22,16 @@ public class LoginPage {
 		Canvas bottom_panel = buildBottomPanel();
 		Canvas main_panel = buildMainPanel();
 		
-		VLayout main_layout = new VLayout();
+		VLayout output = new VLayout();
 		top_panel.setWidth100();
 		top_panel.setHeight("10%");
-		main_layout.addMember(top_panel);
+		output.addMember(top_panel);
 		main_panel.setWidth("20%");
 		//main_panel.setHeight("20%");
-		main_layout.setAlign(Alignment.CENTER);
-		main_layout.addMember(main_panel);
+		main_panel.setAlign(Alignment.CENTER);
+		output.addMember(main_panel);
 		
-		
-		return main_layout;
+		return output;
 	}
 	
 	private Canvas buildTopPanel() {
@@ -99,13 +98,9 @@ public class LoginPage {
 				String input_password = passwordItem.getValueAsString();
 				if (input_password != null && 
 						input_password.equals(MockData.getValidUser().getPassword())) {
-					RootPanel rootPanel = RootPanel.get("testWindow");
-					rootPanel.clear();
 					CalendarPage calendar_page = new CalendarPage();
 					Canvas content = calendar_page.build();
-					content.setWidth(1000);
-					content.setHeight(800);
-					rootPanel.add(content);
+					PolishCalendarDev.replaceOutmostContent(content);
 				}
 				else {
 					Window.alert("Incorrect password!");

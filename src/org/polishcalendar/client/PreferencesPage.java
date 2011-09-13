@@ -148,13 +148,9 @@ public class PreferencesPage {
 		back_button.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				RootPanel rootPanel = RootPanel.get("testWindow");
-				rootPanel.clear();
 				CalendarPage caldendar_page = new CalendarPage();
 				Canvas content = caldendar_page.build();
-				content.setWidth(1000);
-				content.setHeight(800);
-				rootPanel.add(content);
+				PolishCalendarDev.replaceOutmostContent(content);
 			}
 		});
 		

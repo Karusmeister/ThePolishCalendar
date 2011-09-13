@@ -12,6 +12,7 @@ import com.smartgwt.client.widgets.Canvas;
  */
 public class PolishCalendarDev implements EntryPoint {
 	
+	public static Canvas outmost_element = null;
 	
 	public void onModuleLoad() {
 		
@@ -19,7 +20,9 @@ public class PolishCalendarDev implements EntryPoint {
 		//Canvas scwindow_main_panel = shortcutWindow.buildShortcutPanel();
 		
 		LoginPage loginPage = new LoginPage();
-		Canvas content = loginPage.buildLoginPage();
+		Canvas login_page = loginPage.buildLoginPage();
+		login_page.setWidth100();
+		login_page.setHeight100();
 		
 		//SearchPage search_page = new SearchPage();
 		//Canvas content = search_page.build();
@@ -27,10 +30,22 @@ public class PolishCalendarDev implements EntryPoint {
 		//CalendarPage caldendar_page = new CalendarPage();
 		//Canvas content = caldendar_page.build();
 		
-		
-		content.setWidth(1000);
-		content.setHeight(800);
-		RootPanel rootPanel = RootPanel.get("testWindow");
-		rootPanel.add(content);
+		outmost_element = new Canvas();
+		outmost_element.setWidth(1000);
+		outmost_element.setHeight(800);
+		outmost_element.addChild(login_page);
+		outmost_element.draw();
 	}
+	
+	
+	// Replaces the content of outmost element by input canvas
+	public static void replaceOutmostContent (Canvas content) {
+		content.setWidth100();
+		content.setHeight100();
+		for (Canvas child: PolishCalendarDev.outmost_element.getChildren()) {
+			child.destroy();
+		}
+		PolishCalendarDev.outmost_element.addChild(content);
+	}
+	
 }

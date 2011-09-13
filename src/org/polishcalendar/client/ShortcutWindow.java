@@ -183,10 +183,10 @@ public class ShortcutWindow {
         test.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				DataSource events_ds = EventDataSource.getEventDS();
 				Date common_date = new Date();
 				EventRecord record = new EventRecord("Test" , "Test" , common_date , 5);
-				events_ds.addData(record);
+				events_grid.startEditingNew(record);
+				events_grid.saveAllEdits();
 			}
 		});
   
