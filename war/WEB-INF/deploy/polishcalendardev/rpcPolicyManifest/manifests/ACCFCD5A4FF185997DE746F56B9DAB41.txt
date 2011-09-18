@@ -1,2 +1,0 @@
-serviceClass: org.polishcalendar.client.GreetingService
-path: 32029BE6B185F1809603211279C17DE7.gwt.rpc
