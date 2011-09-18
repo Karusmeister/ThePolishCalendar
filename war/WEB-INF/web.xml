@@ -5,11 +5,6 @@
 
 <web-app>
 
-	<!-- Default page to serve -->
-	<welcome-file-list>
-		<welcome-file>PolishCalendarDev.html</welcome-file>
-	</welcome-file-list>
-
 	<servlet>
 		<servlet-name>eventServiceImpl</servlet-name>
 		<servlet-class>org.polishcalendar.server.EventServiceImpl</servlet-class>
@@ -29,5 +24,10 @@
 		<servlet-name>eventServiceImpl</servlet-name>
 		<url-pattern>/polishcalendardev/event</url-pattern>
 	</servlet-mapping>
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>PolishCalendarDev.html</welcome-file>
+	</welcome-file-list>
 
 </web-app>

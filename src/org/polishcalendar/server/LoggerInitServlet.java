@@ -12,9 +12,7 @@ public class LoggerInitServlet extends HttpServlet {
 	static final Logger logger = Logger.getLogger(LoggerInitServlet.class);
 
 	public void init() throws ServletException {
-		System.out.println("Log4JInitServlet init() starting.");
 		String log4jfile = getInitParameter("log4j-properties");
-		System.out.println("log4jfile: " + log4jfile);
 		if (log4jfile != null) {
 			String propertiesFilename = getServletContext().getRealPath(
 					log4jfile);
@@ -23,7 +21,6 @@ public class LoggerInitServlet extends HttpServlet {
 		} else {
 			System.out.println("Error setting up logger.");
 		}
-		System.out.println("Log4JInitServlet init() done.");
 	}
 
 }
