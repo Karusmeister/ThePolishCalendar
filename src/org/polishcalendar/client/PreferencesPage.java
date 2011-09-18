@@ -114,7 +114,7 @@ public class PreferencesPage {
 	private Canvas buildBottomPanel() {
 		
 		// TODO stub
-		
+
 		return null;
 	}
 	

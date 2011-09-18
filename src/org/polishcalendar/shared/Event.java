@@ -3,12 +3,14 @@ package org.polishcalendar.shared;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Event implements Serializable {
+import net.sf.gilead.pojo.gwt.LightEntity;
+
+public class Event extends LightEntity implements Serializable{
 
 	private static final long serialVersionUID = 7529922952278235792L;
 	
 	private String name;
-	private String organized_by;
+	private String organizedBy;
 	private Date date;
 	private int index;
 	
@@ -28,10 +30,10 @@ public class Event implements Serializable {
 		this.name = name;
 	}
 	public String getOrganizedBy() {
-		return organized_by;
+		return organizedBy;
 	}
 	public void setOrganizedBy(String organizedBy) {
-		organized_by = organizedBy;
+		this.organizedBy = organizedBy;
 	}
 	public Date getDate() {
 		return date;
@@ -49,7 +51,7 @@ public class Event implements Serializable {
 	// for debugging
 	public String toString() {
 		return "Name: " + name + "\n" +
-			   "Organized by: " + organized_by + "\n" +
+			   "Organized by: " + organizedBy + "\n" +
 			   "Date: " + date + "\n" +
 			   "Index: " + index + "\n"; 
 	}
