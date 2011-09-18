@@ -5,19 +5,29 @@
 
 <web-app>
 
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>PolishCalendarDev.html</welcome-file>
-  </welcome-file-list>
-  
-  <servlet>
-  	<servlet-name>eventServiceImpl</servlet-name>
-  	<servlet-class>org.polishcalendar.server.EventServiceImpl</servlet-class>
-  </servlet>
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>PolishCalendarDev.html</welcome-file>
+	</welcome-file-list>
 
-  <servlet-mapping>
-    <servlet-name>eventServiceImpl</servlet-name>
-    <url-pattern>/polishcalendardev/event</url-pattern>
-  </servlet-mapping>
-  
+	<servlet>
+		<servlet-name>eventServiceImpl</servlet-name>
+		<servlet-class>org.polishcalendar.server.EventServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>LoggerInitServlet</servlet-name>
+		<servlet-class>org.polishcalendar.server.LoggerInitServlet</servlet-class>
+		<init-param>
+			<param-name>log4j-properties</param-name>
+			<param-value>/WEB-INF/classes/log4j.properties</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>eventServiceImpl</servlet-name>
+		<url-pattern>/polishcalendardev/event</url-pattern>
+	</servlet-mapping>
+
 </web-app>
