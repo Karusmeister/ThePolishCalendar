@@ -1,4 +1,4 @@
 war/polishcalendardev/*
 war/WEB-INF/classes/*
 war/WEB-INF/deploy/*
-war/WEB-INF/logs/*
+war/logs/*
