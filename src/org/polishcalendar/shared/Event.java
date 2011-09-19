@@ -9,20 +9,55 @@ public class Event extends LightEntity implements Serializable{
 
 	private static final long serialVersionUID = 7529922952278235792L;
 	
+	// Calendar widget data
 	private String name;
+	private Date startDate;
+	private Date endDate;
+	private Long index;
+	
+	// Description data
+	//TODO one-to-many with organizations
 	private String organizedBy;
-	private Date date;
-	private int index;
+	private String location;
+	
+	//TODO preference data
+	
+	//TODO many-to-many with attending users
+	
 	
 	public Event() {}
 	
-	public Event(String name, String organized_by, Date date, int index) {
+	public Event(String name, String organized_by, Date date, Long index) {
 		setName(name);
 		setOrganizedBy(organized_by);
-		setDate(date);
+		setStartDate(date);
 		setIndex(index);
 	}
 	
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -35,16 +70,10 @@ public class Event extends LightEntity implements Serializable{
 	public void setOrganizedBy(String organizedBy) {
 		this.organizedBy = organizedBy;
 	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	public int getIndex() {
+	public Long getIndex() {
 		return index;
 	}
-	public void setIndex(int index) {
+	public void setIndex(Long index) {
 		this.index = index;
 	}
 	
@@ -52,7 +81,7 @@ public class Event extends LightEntity implements Serializable{
 	public String toString() {
 		return "Name: " + name + "\n" +
 			   "Organized by: " + organizedBy + "\n" +
-			   "Date: " + date + "\n" +
+			   "Date: " + startDate + "\n" +
 			   "Index: " + index + "\n"; 
 	}
 }

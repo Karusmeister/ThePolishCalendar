@@ -1,6 +1,5 @@
 package org.polishcalendar.client;
 
-import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.calendar.Calendar;
@@ -10,6 +9,8 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class CalendarPage {
+	
+	private Calendar calendar;
 
 	public Canvas build() {
 		
@@ -118,10 +119,11 @@ public class CalendarPage {
 		left_panel.addMember(buttons);
 		
 		// Creating calendar
-		Calendar calendar = new Calendar();
+		calendar = new Calendar();
 		calendar.setAddDropValues(true);
 		calendar.setWidth("*");
 		calendar.setHeight("90%");
+		calendar.setData(MockData.getCalendarData());
 		
 		main_layout.addMember(left_panel);
 		main_layout.addMember(calendar);
@@ -147,14 +149,32 @@ public class CalendarPage {
 		Button all_events = new Button("Show All Events");
 		all_events.setWidth100();
 		buttons_layout.addMember(all_events);
+		all_events.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) { 
+				calendar.setData(MockData.getCalendarData());
+			}
+		});
 		
-		Button attending_events = new Button("Show Attending Events");
+		Button attending_events = new Button("Show Events I am Attending");
 		attending_events.setWidth100();
 		buttons_layout.addMember(attending_events);
+		attending_events.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) { 
+				calendar.setData(MockData.getAttendingEvents());
+			}
+		});
 		
-		Button preference_events = new Button("Show Preference Events");
+		Button preference_events = new Button("Show Events Matching My Preferences");
 		preference_events.setWidth100();
 		buttons_layout.addMember(preference_events);
+		preference_events.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) { 
+				calendar.setData(MockData.getPreferenceEvents());
+			}
+		});
 		
 		return buttons_layout;
 	}

@@ -102,14 +102,14 @@ public class EventDataSource extends GwtRpcDataSource {
 	private static void copyValues(ListGridRecord from, Event to) {
 		to.setName(from.getAttributeAsString("name"));
 		to.setOrganizedBy(from.getAttributeAsString("organized_by"));
-		to.setDate(from.getAttributeAsDate("date"));
-		to.setIndex(from.getAttributeAsInt("index"));
+		to.setStartDate(from.getAttributeAsDate("date"));
+		to.setIndex(from.getAttributeAsLong("index"));
 	}
 	
 	private static void copyValues(Event from, ListGridRecord to) {
 		to.setAttribute("name" , from.getName());
 		to.setAttribute("organized_by" , from.getOrganizedBy());
-		to.setAttribute("date" , from.getDate());
+		to.setAttribute("date" , from.getStartDate());
 		to.setAttribute("index", from.getIndex());
 	}
 }

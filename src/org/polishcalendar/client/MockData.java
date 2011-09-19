@@ -2,6 +2,7 @@ package org.polishcalendar.client;
 
 import java.util.Date;
 
+import com.smartgwt.client.widgets.calendar.CalendarEvent;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
 public class MockData {
@@ -16,6 +17,9 @@ public class MockData {
 	private static PreferenceRecord[] other_records = null;
 	private static PreferenceRecord[] location_records = null;
 	private static PreferenceRecord[] time_records = null;
+	
+	// calendar data
+	private static CalendarEvent[] calendar_data = null; 
 	
 	private static UserRecord valid_user = null;
 	
@@ -164,6 +168,50 @@ public class MockData {
 		return valid_user;
 	}
 	
+	@SuppressWarnings("deprecation")
+	public static CalendarEvent[] getCalendarData() {
+		if (calendar_data == null) {
+			
+		    Date today = new Date();  
+		    int year = today.getYear();  
+		    int month = today.getMonth();  
+		    int start = today.getDate() - today.getDay();  
+			
+			calendar_data = new CalendarEvent[] {
+	            new CalendarEvent(1, "Meeting with Grzegorz Napieralski", "", new Date(year, month, start + 2, 9, 0, 0), new Date(year, month, start + 2, 14, 0, 0)),  
+	            new CalendarEvent(2, "Polish Vodka Party", "", new Date(year, month, start + 3, 8, 0, 0), new Date(year, month, start + 3, 10, 0, 0)),  
+	            new CalendarEvent(3, "Fryderyk Chopin - charity concert", "", new Date(year, month, start + 4, 13, 0, 0), new Date(year, month, start + 4, 16, 0, 0)),  
+	            new CalendarEvent(4, "Polish restuarant \"U Bobra\" - wine party", "", new Date(year, month, start + 4, 5, 0, 0), new Date(year, month, start + 4, 9, 0, 0)),  
+	            new CalendarEvent(5, "\"Pianista \" - movie showing", "", new Date(year, month, start + 4, 10, 0, 0), new Date(year, month, start + 4, 12, 0, 0)),  
+	            new CalendarEvent(6, "Meeting with Donald Tusk", "", new Date(year, month, start + 4, 1, 0, 0), new Date(year, month, start + 4, 3, 0, 0)),  
+	            new CalendarEvent(7, "Meeting with Lech Kaczynski", "", new Date(year, month, start + 4, 17, 0, 0), new Date(year, month, start + 4, 20, 0, 0)),  
+	            new CalendarEvent(8, "Official opening of Polish institute", "", new Date(year, month, start + 4, 21, 0, 0), new Date(year, month, start + 4, 23, 0, 0)),  
+	            new CalendarEvent(9, "Cook with Krauz - Polish chief workshop", "", new Date(year, month, start + 5, 11, 0, 0), new Date(year, month, start + 5, 15, 0, 0))
+			};
+			
+		}
+		return calendar_data;
+	}
+	
+	public static CalendarEvent[] getAttendingEvents() {
+		CalendarEvent[] events = getCalendarData();
+		return new CalendarEvent[] {
+			events[0],
+			events[3],
+			events[5],
+			events[8]
+		};
+	}
+	
+	public static CalendarEvent[] getPreferenceEvents() {
+		CalendarEvent[] events = getCalendarData();
+		return new CalendarEvent[] {
+			events[1],
+			events[2],
+			events[3],
+			events[6]
+		};
+	}
 	
 	/* Record classes does not have any state themselfs; they user setters and getters
 	 *  of their ancestors to manage the state. */
