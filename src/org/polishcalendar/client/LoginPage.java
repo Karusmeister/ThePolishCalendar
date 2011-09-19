@@ -1,5 +1,7 @@
 package org.polishcalendar.client;
 
+import sun.reflect.generics.visitor.Reifier;
+
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
@@ -109,6 +111,17 @@ public class LoginPage {
 		});
 		
 		Button register_button = new Button("Register");
+		register_button.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				RegistrationPage regPage = new RegistrationPage();
+				Canvas regContent = regPage.buildRegistrationPage();
+				PolishCalendarDev.replaceOutmostContent(regContent);
+			}
+			
+		});
+		
 		buttons_layout.addMember(login_button);
 		buttons_layout.addMember(register_button);
 		
