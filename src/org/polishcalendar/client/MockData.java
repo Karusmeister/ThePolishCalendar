@@ -18,6 +18,8 @@ public class MockData {
 	private static PreferenceRecord[] location_records = null;
 	private static PreferenceRecord[] time_records = null;
 	
+	private static NotificationPreference[] notification_preferences = null;
+	
 	// calendar data
 	private static CalendarEvent[] calendar_data = null; 
 	
@@ -168,6 +170,19 @@ public class MockData {
 		return valid_user;
 	}
 	
+	public static NotificationPreference[] getNotificationPreferences() {
+		if (notification_preferences == null) {
+			notification_preferences = new NotificationPreference[] {
+				new NotificationPreference("web-site announcements" , false, "Email"),
+				new NotificationPreference("followed organizations announcements" , false, "Email"),
+				new NotificationPreference("updates about events you are attending" , true, "Email"),
+				new NotificationPreference("information about new events created by organizations you follow" , true, "Message Box"),
+				new NotificationPreference("information about new events matching your preferences" , true, "Email")
+			};
+		}
+		return notification_preferences;
+	}
+	
 	@SuppressWarnings("deprecation")
 	public static CalendarEvent[] getCalendarData() {
 		if (calendar_data == null) {
@@ -275,6 +290,39 @@ public class MockData {
 		}
 		public void setIndex(int index) {
 			setAttribute("index" , index);
+		}
+	}
+	
+	static class NotificationPreference extends ListGridRecord {
+		
+		public NotificationPreference(String name, boolean selected , String how) {
+			setName(name);
+			setSelected(selected);
+			setHow(how);
+		}
+		
+		public String getName() {
+			return getAttributeAsString("name");
+		}
+		
+		public void setName(String s) {
+			setAttribute("name" , s);
+		}
+		
+		public boolean getSelected() {
+			return getAttributeAsBoolean("selected");
+		}
+		
+		public void setSelected(boolean selected) {
+			setAttribute("selected" , selected);
+		}
+		
+		public String getHow() {
+			return getAttributeAsString("how");
+		}
+		
+		public void setHow(String s) {
+			setAttribute("how" , s);
 		}
 	}
 	
