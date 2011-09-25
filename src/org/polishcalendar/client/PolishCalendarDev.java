@@ -4,6 +4,7 @@ package org.polishcalendar.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.widgets.Canvas;
 
 
@@ -25,18 +26,20 @@ public class PolishCalendarDev implements EntryPoint {
 		//SearchPage search_page = new SearchPage();
 		//Canvas content = search_page.build();
 		
-		//CalendarPage caldendar_page = new CalendarPage();
-		//Canvas content = caldendar_page.build();
+		CalendarPage caldendar_page = new CalendarPage();
+		Canvas content = caldendar_page.build();
 		
-		AccountSettingsPage settingsPage = new AccountSettingsPage();
-		Canvas content = settingsPage.build();
+		//AccountSettingsPage settingsPage = new AccountSettingsPage();
+		//Canvas content = settingsPage.build();
 		
 		content.setWidth100();
 		content.setHeight100();
+		content.setOverflow(Overflow.VISIBLE);
 		outmost_element = new Canvas();
 		outmost_element.setWidth(1050);
 		outmost_element.setHeight(500);
 		outmost_element.addChild(content);
+		outmost_element.setOverflow(Overflow.VISIBLE);
 		outmost_element.draw();
 	}
 	

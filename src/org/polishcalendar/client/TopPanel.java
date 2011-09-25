@@ -11,29 +11,35 @@ public class TopPanel {
 
 	public Layout build () {
 		HLayout upper_toolbar = new HLayout();
+		Button home_page = new Button("Home Page");
 		Button logout_button = new Button("Logout");
-		Button search_button = new Button("Preferences");
+		Button preference_button = new Button("Preferences");
 		Button settings_button = new Button("Account Settings");
 		Button about_button = new Button("About us");
 		Button contant_button = new Button("Contact us");
 		
 		// Creating appearance 
 		// Each button would stretch for stretch% of available width
-		String stretch = "20%";
+		String stretch = "15%";
+		home_page.setWidth(stretch);  
+		home_page.setShowRollOver(true);  
+		home_page.setShowDisabled(true);  
+		home_page.setShowDown(true);  
+		
 		logout_button.setWidth(stretch);  
 		logout_button.setShowRollOver(true);  
 		logout_button.setShowDisabled(true);  
 		logout_button.setShowDown(true);  
 		
-		search_button.setWidth(stretch);  
-		search_button.setShowRollOver(true);  
-		search_button.setShowDisabled(true);  
-		search_button.setShowDown(true);
-		
 		settings_button.setWidth(stretch);  
 		settings_button.setShowRollOver(true);  
 		settings_button.setShowDisabled(true);  
-		settings_button.setShowDown(true);  
+		settings_button.setShowDown(true);
+		
+		preference_button.setWidth(stretch);  
+		preference_button.setShowRollOver(true);  
+		preference_button.setShowDisabled(true);  
+		preference_button.setShowDown(true);  
 		
 		about_button.setWidth(stretch);  
 		about_button.setShowRollOver(true);  
@@ -47,7 +53,25 @@ public class TopPanel {
 		
 		// Creating handlers
 		// Setting all listeners
-		search_button.addClickHandler(new ClickHandler() {
+		home_page.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) { 
+				CalendarPage caldendar_page = new CalendarPage();
+				Canvas content = caldendar_page.build();
+				PolishCalendarDev.replaceOutmostContent(content);
+			}
+		});
+		
+		logout_button.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) { 
+				LoginPage loginPage = new LoginPage();
+				Canvas content = loginPage.buildLoginPage();
+				PolishCalendarDev.replaceOutmostContent(content);
+			}
+		});
+		
+		preference_button.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) { 
 				PreferencesPage search_page = new PreferencesPage();
@@ -56,7 +80,17 @@ public class TopPanel {
 			}
 		});
 		
-		upper_toolbar.addMember(search_button);
+		settings_button.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) { 
+				AccountSettingsPage settingsPage = new AccountSettingsPage();
+				Canvas content = settingsPage.build();
+				PolishCalendarDev.replaceOutmostContent(content);
+			}
+		});
+		
+		upper_toolbar.addMember(home_page);
+		upper_toolbar.addMember(preference_button);
 		upper_toolbar.addMember(settings_button);
 		upper_toolbar.addMember(about_button);
 		upper_toolbar.addMember(contant_button);

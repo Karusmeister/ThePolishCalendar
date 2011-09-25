@@ -19,18 +19,18 @@ public class CalendarPage {
 		Canvas main_panel = buildMainPanel();
 		
 		// layouting 
-		VLayout main_layout = new VLayout();
-		main_layout.setMembersMargin(10);
+		VLayout output = new VLayout();
+		output.setMembersMargin(10);
 		
 		top_panel.setWidth100();
 		top_panel.setHeight("10%");
-		main_layout.addMember(top_panel);
+		output.addMember(top_panel);
 		
 		main_panel.setWidth100();
 		main_panel.setHeight("*");
-		main_layout.addMember(main_panel);
+		output.addMember(main_panel);
 		
-		return main_layout;
+		return output;
 	}
 	
 	

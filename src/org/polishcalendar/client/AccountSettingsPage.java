@@ -1,9 +1,5 @@
 package org.polishcalendar.client;
 
-import java.util.Date;
-
-import org.polishcalendar.client.MockData.EventRecord;
-
 import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.data.fields.DataSourcePasswordField;
 import com.smartgwt.client.types.Alignment;
@@ -40,8 +36,19 @@ public class AccountSettingsPage {
 	private Layout settings_buttons = null;
 	
 	public Canvas build() {
+		Layout output = new VLayout();
 		
-		return buildMainPanel();
+		Layout top_panel = new TopPanel().build();
+		top_panel.setWidth100();
+		top_panel.setHeight("10%");
+		output.addMember(top_panel);
+		
+		Layout main_panel = buildMainPanel();
+		main_panel.setWidth100();
+		main_panel.setHeight("*");
+		output.addMember(main_panel);
+		
+		return output;
 	}
 	
 	/* Building main panels */
@@ -50,6 +57,7 @@ public class AccountSettingsPage {
 		
 		// Building outermost panel
 		VLayout outermost_layout = new VLayout();
+		outermost_layout.setMembersMargin(10);
 		Label title = new Label ("<font size='6px'>Account Settings</font>");
 		title.setAlign(Alignment.CENTER);
 		title.setHeight("10%");
@@ -238,7 +246,7 @@ public class AccountSettingsPage {
         notifications_grid.setData(MockData.getNotificationPreferences()); 
         
         grid_layout.addMember(notifications_grid);
-        grid_layout.setHeight("40%");
+        grid_layout.setHeight("60%");
         output.addMember(grid_layout);
         
 		output.addMember(buildSettingsButtons());

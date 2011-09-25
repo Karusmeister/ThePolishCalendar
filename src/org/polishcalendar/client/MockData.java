@@ -25,6 +25,8 @@ public class MockData {
 	
 	private static UserRecord valid_user = null;
 	
+	private static LocationRecord[] locations = null;
+	
 	public static OrganizationRecord[] getOrganizations() {
 		if (org_records == null) {
 			OrganizationRecord org1 = new OrganizationRecord("Arka Gdynia" , true , 1);
@@ -228,6 +230,18 @@ public class MockData {
 		};
 	}
 	
+	public static LocationRecord[] getLocationRecords() {
+		if (locations == null) {
+			locations = new LocationRecord[] {
+				new LocationRecord("Warsaw - Poland"),
+				new LocationRecord("London - UK"),
+				new LocationRecord("Cracov - Poland"),
+				new LocationRecord("Manchester - UK")
+			};
+		}
+		return locations;
+	}
+	
 	/* Record classes does not have any state themselfs; they user setters and getters
 	 *  of their ancestors to manage the state. */
 	static class OrganizationRecord extends ListGridRecord {
@@ -351,6 +365,20 @@ public class MockData {
 		}
 		public void setIndex(int index) {
 			setAttribute("index" , index);
+		}
+	}
+	
+	static class LocationRecord extends ListGridRecord {
+		public LocationRecord(String location) {
+			setLocation(location);
+		}
+		
+		public void setLocation(String location) {
+			setAttribute("location" , location);
+		}
+		
+		public String getLocation() {
+			return getAttributeAsString("location");
 		}
 	}
 	
