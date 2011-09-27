@@ -20,7 +20,7 @@ public class TopPanel {
 		
 		// Creating appearance 
 		// Each button would stretch for stretch% of available width
-		String stretch = "15%";
+		String stretch = "20%";
 		home_page.setWidth(stretch);  
 		home_page.setShowRollOver(true);  
 		home_page.setShowDisabled(true);  
@@ -90,7 +90,7 @@ public class TopPanel {
 		});
 		
 		upper_toolbar.addMember(home_page);
-		upper_toolbar.addMember(preference_button);
+		//upper_toolbar.addMember(preference_button);
 		upper_toolbar.addMember(settings_button);
 		upper_toolbar.addMember(about_button);
 		upper_toolbar.addMember(contant_button);
