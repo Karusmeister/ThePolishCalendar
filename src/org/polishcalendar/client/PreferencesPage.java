@@ -1,6 +1,7 @@
 package org.polishcalendar.client;
 
 import org.polishcalendar.client.MockData.PreferenceRecord;
+import org.polishcalendar.ds.LocPrefDS;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.Overflow;
@@ -20,6 +21,7 @@ import com.smartgwt.client.widgets.form.fields.BlurbItem;
 import com.smartgwt.client.widgets.form.fields.CheckboxItem;
 import com.smartgwt.client.widgets.form.fields.ComboBoxItem;
 import com.smartgwt.client.widgets.form.fields.HeaderItem;
+import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
@@ -189,12 +191,12 @@ public class PreferencesPage {
         ListGridField search_field = new ListGridField("search_loc"); 
         ListGrid search_grid_props = new ListGrid();  
         search_grid_props.setShowFilterEditor(true);
-        search_grid_props.setShowHeader(false);
         
         final DynamicForm form = new DynamicForm();  
-		final ComboBoxItem location_item = new ComboBoxItem("location_search");
-		location_item.setType("comboBox");
-		location_item.setValueMap(MockData.getLocationsValuesMap());
+        form.setNumCols(4);
+		final SelectItem location_item = new SelectItem("location_search");
+		//location_item.setType("comboBox");
+		location_item.setOptionDataSource(LocPrefDS.getInstance());
         location_item.setTitle("Location");
         location_item.setHint("<nobr>Search for a given location of interests</nobr>");
         location_item.setDisplayField("search_loc"); 
