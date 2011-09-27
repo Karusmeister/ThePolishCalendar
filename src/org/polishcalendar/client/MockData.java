@@ -242,6 +242,16 @@ public class MockData {
 		return locations;
 	}
 	
+	public static String[] getLocationsValuesMap() {
+		return new String[] {
+			"London - UK" , "Manchester - UK" , "Edinbourgh - UK" , "Glasgow - UK",
+			"Briston - UK" , "Bath - UK" , "Cambridge - UK" , "Oxford - UK" , "Southamption - UK" ,
+			"Brixton - Africa" , "New York - USA" , "San Francisco - US" , "Los Angeles - UK" ,
+			"Lodz - Poland" , "Warsaw - Poland" , "Lomza - Poland" , "Nowy Sacz - Poland" ,
+			"Danzig - Poland" , "Cracov - Poland" , "Wroclaw - Poland" , "Poznan - Poland"
+		};
+	}
+	
 	/* Record classes does not have any state themselfs; they user setters and getters
 	 *  of their ancestors to manage the state. */
 	static class OrganizationRecord extends ListGridRecord {

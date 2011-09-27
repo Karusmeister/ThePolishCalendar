@@ -9,7 +9,6 @@ import com.smartgwt.client.types.SelectionStyle;
 import com.smartgwt.client.types.Side;
 import com.smartgwt.client.types.VisibilityMode;
 import com.smartgwt.client.widgets.Button;
-import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.DateChooser;
 import com.smartgwt.client.widgets.HTMLFlow;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -19,6 +18,7 @@ import com.smartgwt.client.widgets.events.DataChangedHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.BlurbItem;
 import com.smartgwt.client.widgets.form.fields.CheckboxItem;
+import com.smartgwt.client.widgets.form.fields.ComboBoxItem;
 import com.smartgwt.client.widgets.form.fields.HeaderItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.grid.ListGrid;
@@ -150,12 +150,20 @@ public class PreferencesPage {
 		VLayout output = new VLayout();
 		output.setMembersMargin(10);
 		
+		// Dividing the main screen into lhs and rhs
+		HLayout main_layout = new HLayout();
+		main_layout.setMembersMargin(15);
+		
+		// Creating lhs
+		VLayout lhs_layout = new VLayout();
+		lhs_layout.setMembersMargin(10);
+		
 		// Creating explanation
 		HTMLFlow description = new HTMLFlow();
 		description.setStyleName("exampleTextBlock");
 		description.setContents("<h3>Your locations of interests</h3>");
 		description.setAlign(Alignment.CENTER);
-		output.addMember(description);
+		lhs_layout.addMember(description);
 		
 		// creating locations grid
 		final ListGrid locations_grid = new ListGrid();
@@ -168,15 +176,34 @@ public class PreferencesPage {
         locations_grid.setShowEdges(false);
         locations_grid.setShowHeader(false);
         locations_grid.setShowHeaderContextMenu(false);
-        output.addMember(locations_grid);
+        lhs_layout.addMember(locations_grid);
+        
+        lhs_layout.setWidth("50%");
+        main_layout.addMember(lhs_layout);
+        
+        // creating rhs layout
+        VLayout rhs_layout = new VLayout();
+        rhs_layout.setMembersMargin(10);
         
         // creating search box
+        ListGridField search_field = new ListGridField("search_loc"); 
+        ListGrid search_grid_props = new ListGrid();  
+        search_grid_props.setShowFilterEditor(true);
+        search_grid_props.setShowHeader(false);
+        
         final DynamicForm form = new DynamicForm();  
-        final TextItem location_item = new TextItem("location_search");
+		final ComboBoxItem location_item = new ComboBoxItem("location_search");
+		location_item.setType("comboBox");
+		location_item.setValueMap(MockData.getLocationsValuesMap());
         location_item.setTitle("Location");
         location_item.setHint("<nobr>Search for a given location of interests</nobr>");
+        location_item.setDisplayField("search_loc"); 
+        location_item.setPickListWidth(300); 
+        location_item.setPickListFields(search_field);  
+        location_item.setPickListProperties(search_grid_props); 
+        
         form.setFields(location_item);
-        output.addMember(form);
+        rhs_layout.addMember(form);
         
 		Button add_button = new Button("Add Location");
 		add_button.addClickHandler(new ClickHandler() {
@@ -188,7 +215,12 @@ public class PreferencesPage {
 				}
 			}
 		});
-		output.addMember(add_button);
+		rhs_layout.addMember(add_button);
+		
+		rhs_layout.setWidth("50%");
+		main_layout.addMember(rhs_layout);
+		
+		output.addMember(main_layout);
 		
 		// creating bottom buttons
 		Layout bottom_widget = createBottomButtons();
