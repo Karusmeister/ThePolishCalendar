@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 
 import org.hibernate.Session;
 import org.polishcalendar.client.services.EventService;
+import org.polishcalendar.server.util.HibernateUtil;
 import org.polishcalendar.shared.Event;
-import org.polishcalendar.util.HibernateUtil;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

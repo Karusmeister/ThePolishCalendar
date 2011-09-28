@@ -1,6 +1,8 @@
 package org.polishcalendar.client;
 
 
+import org.polishcalendar.client.util.AppConstants;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -36,8 +38,8 @@ public class PolishCalendarDev implements EntryPoint {
 		content.setHeight100();
 		content.setOverflow(Overflow.VISIBLE);
 		outmost_element = new Canvas();
-		outmost_element.setWidth(1050);
-		outmost_element.setHeight(500);
+		outmost_element.setWidth(AppConstants.MAIN_PAGE_WIDTH);
+		outmost_element.setHeight(AppConstants.MAIN_PAGE_HEIGHT);
 		outmost_element.addChild(content);
 		outmost_element.setOverflow(Overflow.VISIBLE);
 		outmost_element.draw();

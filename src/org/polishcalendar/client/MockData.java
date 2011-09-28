@@ -27,15 +27,23 @@ public class MockData {
 	
 	private static LocationRecord[] locations = null;
 	
+	private static String organization_desc = "This is organization description field. " +
+			"Please, keep it simple, short and imformative. This is only a stub for prototyping. " +
+			"I juz mam dosyc sluchania o wyborach caly dzien we wszystkich mozliwych mediach.";
+	
 	public static OrganizationRecord[] getOrganizations() {
 		if (org_records == null) {
-			OrganizationRecord org1 = new OrganizationRecord("Arka Gdynia" , true , 1);
-			OrganizationRecord org2 = new OrganizationRecord("Browar Lomza" , true , 2);
-			OrganizationRecord org3 = new OrganizationRecord("Imperial Polsoc" , false , 3);
-			org_records = new OrganizationRecord[3];
-			org_records[0] = org1;
-			org_records[1] = org2;
-			org_records[2] = org3;
+			org_records = new OrganizationRecord[] {
+				new OrganizationRecord("Arka Gdynia" , organization_desc, true , 1),
+				new OrganizationRecord("Browar Lomza",organization_desc , true , 2),
+				new OrganizationRecord("Imperial Polsoc", organization_desc , false , 3),
+				new OrganizationRecord("Cambridge Polsoc", organization_desc , false , 4),
+				new OrganizationRecord("Polish London Business Club", organization_desc , false , 5),
+				new OrganizationRecord("Some fake club", organization_desc , false , 6),
+				new OrganizationRecord("Some fake club2", organization_desc , false , 7),
+				new OrganizationRecord("Some fake club3", organization_desc , false , 8),
+				new OrganizationRecord("Some fake club4", organization_desc , false , 9),
+			};
 		}
 		return org_records;
 	}
@@ -256,10 +264,13 @@ public class MockData {
 	 *  of their ancestors to manage the state. */
 	static class OrganizationRecord extends ListGridRecord {
 		
-		public OrganizationRecord (String name, boolean follow, int index) {
+		public OrganizationRecord (String name, String description, boolean follow, int index) {
 			setName(name);
+			setDescription(description);
 			setFollow(follow);
 			setIndex(index);
+			setImage("imperial");
+			setLink("www.google.pl");
 		}
 		
 		public String getName() {
@@ -267,6 +278,24 @@ public class MockData {
 		}
 		public void setName(String name) {
 			setAttribute("name" , name);
+		}
+		public String getDescription() {
+			return getAttributeAsString("description");
+		}
+		public void setDescription(String description) {
+			setAttribute("description" , description);
+		}
+		public String getLink() {
+			return getAttributeAsString("link");
+		}
+		public void setLink(String link) {
+			setAttribute("link" , link);
+		}
+		public String getImage() {
+			return getAttributeAsString("image");
+		}
+		public void setImage(String image) {
+			setAttribute("image" , image);
 		}
 		public boolean getFollow() {
 			return getAttributeAsBoolean("follow");

@@ -165,30 +165,7 @@ public class CalendarPage {
 	
 	
 	private Layout createGeneralButtons() {
-		VLayout output = new VLayout();
-		output.setMembersMargin(5);
-		
-		LayoutSpacer spacer = new LayoutSpacer();
-		spacer.setHeight("40%");
-		output.addMember(spacer);
-		
-		Button orgs_b = new Button("My Organizations");
-		orgs_b.setWidth100();
-		output.addMember(orgs_b);
-		
-		Button pref_b = new Button("My Preferences");
-		pref_b.setWidth100();
-		pref_b.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) { 
-				PreferencesPage search_page = new PreferencesPage();
-				Canvas content = search_page.build();
-				PolishCalendarDev.replaceOutmostContent(content);
-			}
-		});
-		output.addMember(pref_b);
-		
-		return output;
+		return (new GeneralButtons()).buildGeneralButtons();
 	}
 	
 	

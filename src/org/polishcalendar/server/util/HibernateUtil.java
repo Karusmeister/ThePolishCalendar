@@ -1,4 +1,4 @@
-package org.polishcalendar.util;
+package org.polishcalendar.server.util;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
