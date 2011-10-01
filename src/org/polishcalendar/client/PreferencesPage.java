@@ -95,10 +95,9 @@ public class PreferencesPage {
 		return null;
 	}
 	
-	// creates interests tbb
-	private Layout createInterestsContent() {
-		VLayout main_layout = new VLayout();
-		main_layout.setMembersMargin(10);
+	protected Layout createPreferenceStack() {
+		
+		VLayout output = new VLayout();
 		
 		// creating preference pick-up
         final SectionStack preferences_stack = new SectionStack();  
@@ -108,7 +107,6 @@ public class PreferencesPage {
         preferences_stack.setHeight("90%");
         preferences_stack.setMembersMargin(10);
         preferences_stack.setAnimateSections(true);
-        main_layout.addMember(preferences_stack);
         
     	social_select = createPreferencesGrid(MockData.getSocialPreferences());
     	cultural_select = createPreferencesGrid(MockData.getCulturalPreferences());
@@ -138,6 +136,18 @@ public class PreferencesPage {
         section4.setCanCollapse(true);  
         section4.addItem(other_select);  
         preferences_stack.addSection(section4);
+        
+        output.addMember(preferences_stack);
+        return output;
+	}
+	
+	// creates interests tbb
+	private Layout createInterestsContent() {
+		VLayout main_layout = new VLayout();
+		main_layout.setMembersMargin(10);
+		
+		// creating preference pick-up
+		main_layout.addMember(createPreferenceStack());
         
 		// creating bottom buttons
 		Layout bottom_widget = createBottomButtons();
