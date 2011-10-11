@@ -20,11 +20,7 @@ public class RegistrationPage {
 	
 	public Canvas buildRegistrationPage() {
 		
-		// VLayout output = new VLayout();
-		 
-		 //return output;
-		
-		return buildRegistrationForm();
+ 		return buildRegistrationForm();
 	}
 
 	
@@ -84,6 +80,18 @@ public class RegistrationPage {
             }  
         });  
         
+        
+        ButtonItem registerOrg= new ButtonItem();
+        registerOrg.setTitle("Register Organisation");
+        registerOrg.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				PolishCalendarDev.replaceOutmostContent((new OrganisationRegistration()).buildOrganisationRegistration());	
+			}
+		});
+        
+        
         ButtonItem backTologinPage = new ButtonItem("Back");
         backTologinPage.addClickHandler(new ClickHandler() {
 			
@@ -93,9 +101,8 @@ public class RegistrationPage {
 			}
 		});
   
-
-        
-        form.setFields(header, passwordItem, passwordItem2, acceptItem, validateItem, backTologinPage);
+ 
+        form.setFields(header, passwordItem, passwordItem2, acceptItem, validateItem, registerOrg, backTologinPage);
                
               
         return form;  
