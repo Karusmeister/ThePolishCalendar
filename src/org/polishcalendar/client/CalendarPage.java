@@ -61,6 +61,55 @@ public class CalendarPage {
 		return output;
 	}
 	
+	public Canvas buildOrganisationCalendar(){
+	
+		VLayout output = new VLayout();
+		
+		Canvas top_panel = buildTopPanel();
+		// Canvas bottom_panel = buildBottomPanel();
+		
+		Canvas main_panel = buildMainOrganisationPanel();
+		
+		output.addMember(top_panel);
+		output.addMember(main_panel);
+
+		return output;
+	}
+	
+	private Canvas buildMainOrganisationPanel(){
+		
+		HLayout output = new HLayout();
+		
+		// Creating calendar
+		VLayout cal_layout = new VLayout(); 
+		cal_layout.setMembersMargin(10);
+		
+		calendar = new Calendar();
+		// canEditEvents false cause that disables standart creator. Gonna
+		// use self made creator
+		calendar.setCanEditEvents(false);
+		calendar.setCanCreateEvents(false);
+		calendar.setAddDropValues(true);
+		calendar.setWidth100();
+		calendar.setHeight("90%");
+		calendar.setData(MockData.getCalendarData());
+		// no pop up for user
+		
+		calendar.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				final Window creator_popup = buildNewEventPopup();
+				creator_popup.show();
+			}
+		});
+	
+		
+
+		cal_layout.addMember(calendar);
+		
+		return output;
+		
+	}
 	
 	private Canvas buildTopPanel() {
 		return (new TopPanel()).build();
@@ -73,7 +122,7 @@ public class CalendarPage {
 		main_layout.setMembersMargin(15);
 		
 		//
-		// Creating vertical panel on the right
+		// Creating vertical panel on the left
 		//
 		VLayout left_panel = new VLayout();
 		left_panel.setWidth("30%");
@@ -107,18 +156,26 @@ public class CalendarPage {
 		cal_layout.setMembersMargin(10);
 		
 		calendar = new Calendar();
+		// user specification of calendar
+		calendar.setCanEditEvents(false);
+		calendar.setCanCreateEvents(false);
 		calendar.setAddDropValues(true);
 		calendar.setWidth100();
 		calendar.setHeight("90%");
 		calendar.setData(MockData.getCalendarData());
-		calendar.addBackgroundClickHandler(new BackgroundClickHandler() {
+		// no pop up for user
+		
+		/*calendar.addClickHandler(new ClickHandler() {
 			@Override
-			public void onBackgroundClick(BackgroundClickEvent event) {
+			public void onClick(ClickEvent event) {
 				final Window creator_popup = buildNewEventPopup();
 				creator_popup.show();  
 			}
 		});
+		*/
+
 		cal_layout.addMember(calendar);
+		
 		
 		HLayout cal_buttons_l = new HLayout();
 		cal_buttons_l.setMembersMargin(10);
