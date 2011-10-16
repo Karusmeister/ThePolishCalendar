@@ -16,6 +16,7 @@ import com.smartgwt.client.widgets.events.CloseClickHandler;
 import com.smartgwt.client.widgets.events.CloseClientEvent;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.grid.events.SelectionChangedHandler; 
 import com.smartgwt.client.widgets.grid.events.SelectionEvent;
 import com.smartgwt.client.widgets.layout.HLayout;  
@@ -31,6 +32,7 @@ public class ShortcutWindow {
 	// Hack - set to true when organizations popup window is being destroyed, so that
 	// SelectionEvent is ignored.
 	private boolean organizations_destoyed = false;
+	private int test_event_id = 1;
 	
 	public Canvas buildShortcutPanel() {
 		
@@ -107,8 +109,8 @@ public class ShortcutWindow {
 				final Window events_popup = new Window();
 				
 				// Setting popup
-				events_popup.setWidth(400);  
-				events_popup.setHeight(600);  
+				events_popup.setWidth(700);  
+				events_popup.setHeight(500);  
 				events_popup.setTitle("Registered events");  
 				events_popup.setShowMinimizeButton(false);  
 				events_popup.setIsModal(true);  
@@ -174,18 +176,29 @@ public class ShortcutWindow {
 	private Canvas buildEventsPopup() {
 		VLayout layout = new VLayout();
 		
-        final ListGrid events_grid = new ListGrid();  
+        final ListGrid events_grid = new ListGrid(); 
+        events_grid.setCanEdit(true);
         events_grid.setWidth100();  
         //events_grid.setHeight100();  
         
-        // test button
-        Button test = new Button("Test");
+        // test buttons
+        Button new_record = new Button("New Record");
+        new_record.addClickHandler(new ClickHandler() {
+        	public void onClick(ClickEvent event) {
+        		ListGridRecord record = new ListGridRecord();
+        		record.setAttribute("id", test_event_id);
+        		test_event_id++;
+        		events_grid.startEditingNew(record);
+        	}
+        });
+        
+        Button test = new Button("Save");
         test.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				Date common_date = new Date();
-				EventRecord record = new EventRecord("Test" , "Test" , common_date , 5);
-				events_grid.startEditingNew(record);
+				//Date common_date = new Date();
+				//EventRecord record = new EventRecord("Test" , "Test" , common_date , 5);
+				//events_grid.startEditingNew(record);
 				events_grid.saveAllEdits();
 			}
 		});
@@ -196,16 +209,19 @@ public class ShortcutWindow {
         //events_grid.setFields(nameField, organizationField, dateField);
         DataSource events_ds = EventDataSource.getEventDS();
         events_grid.setDataSource(events_ds);
-        events_grid.setAutoFetchData(true);
+        //events_grid.setAutoFetchData(true);
         
+        /*
         EventRecord[] records = (EventRecord[]) MockData.getEvents();
         for (EventRecord record : records) {
         	events_ds.addData(record);
         }
         //events_grid.setData(records);
+         * */
         
         layout.addMember(events_grid);
         layout.addMember(test);
+        layout.addMember(new_record);
         
 		return layout;
 	}

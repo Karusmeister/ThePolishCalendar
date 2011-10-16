@@ -2,7 +2,7 @@ package org.polishcalendar.ds;
 
 import org.polishcalendar.client.services.EventService;
 import org.polishcalendar.client.services.EventServiceAsync;
-import org.polishcalendar.shared.Event;
+import org.polishcalendar.shared.EventDTO;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
@@ -30,20 +30,30 @@ public class EventDataSource extends GwtRpcDataSource {
 	private EventDataSource (String id) {
 		setID(id);
 		
-		DataSourceIntegerField index_field = new DataSourceIntegerField("index");
-		index_field.setPrimaryKey(true);
-		index_field.setHidden(true);
+		DataSourceIntegerField index_f = new DataSourceIntegerField("id");
+		index_f.setPrimaryKey(true);
+		index_f.setHidden(true);
 		
-		DataSourceTextField name_field =  new DataSourceTextField("name");
-		name_field.setRequired(true);
+		DataSourceTextField name_f =  new DataSourceTextField("name");
+		name_f.setRequired(true);
 		
-		DataSourceTextField organized_by_field = new DataSourceTextField("organized_by");
-		organized_by_field.setRequired(true);
+		DataSourceTextField location_f = new DataSourceTextField("location");
+		location_f.setRequired(true);
 		
-		DataSourceDateField date_field = new DataSourceDateField("date");
-		date_field.setRequired(true);
+		DataSourceIntegerField attendeesNumber_f = new DataSourceIntegerField("attendeesNumber");
+		attendeesNumber_f.setRequired(true);
 		
-		setFields(name_field,organized_by_field,date_field,index_field);
+		DataSourceDateField startDate_f = new DataSourceDateField("startDate");
+		startDate_f.setRequired(true);
+		
+		DataSourceTextField organizationName_f = new DataSourceTextField("organizationName");
+		organizationName_f.setRequired(true);
+		
+		// TODO
+		// Should we also add support for associations in DTOs?
+		
+		setFields(index_f , name_f , location_f , attendeesNumber_f , 
+				startDate_f , organizationName_f);
 	}
 
 	@Override
@@ -53,12 +63,12 @@ public class EventDataSource extends GwtRpcDataSource {
 		// retriving record
 		JavaScriptObject js_data = request.getData();
 		ListGridRecord event_record = new ListGridRecord(js_data);
-		Event event = new Event();
+		EventDTO event = new EventDTO();
 		copyValues(event_record, event);
 		
 		// creating service
 		EventServiceAsync service = GWT.create (EventService.class);
-		service.addEvent(event, new AsyncCallback<Event>() {
+		service.addEvent(event, new AsyncCallback<EventDTO>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -67,7 +77,7 @@ public class EventDataSource extends GwtRpcDataSource {
 			}
 
 			@Override
-			public void onSuccess(Event result) {
+			public void onSuccess(EventDTO result) {
                 ListGridRecord[] list = new ListGridRecord[1];
                 ListGridRecord newRec = new ListGridRecord ();
                 copyValues (result, newRec);
@@ -99,17 +109,22 @@ public class EventDataSource extends GwtRpcDataSource {
 		
 	}
 	
-	private static void copyValues(ListGridRecord from, Event to) {
+	/* Copy values between ListGridRecord for view and EventDTO. */
+	private static void copyValues(ListGridRecord from, EventDTO to) {
 		to.setName(from.getAttributeAsString("name"));
-		to.setOrganizedBy(from.getAttributeAsString("organized_by"));
-		to.setStartDate(from.getAttributeAsDate("date"));
-		to.setIndex(from.getAttributeAsLong("index"));
+		to.setId(from.getAttributeAsInt("id"));
+		to.setLocation(from.getAttributeAsString("location"));
+		to.setAttendeesNumber(from.getAttributeAsInt("attendeesNumber"));
+		to.setStartDate(from.getAttributeAsDate("startDate"));
+		to.setOrganizationName(from.getAttributeAsString("organizationName"));
 	}
 	
-	private static void copyValues(Event from, ListGridRecord to) {
-		to.setAttribute("name" , from.getName());
-		to.setAttribute("organized_by" , from.getOrganizedBy());
-		to.setAttribute("date" , from.getStartDate());
-		to.setAttribute("index", from.getIndex());
+	private static void copyValues(EventDTO from, ListGridRecord to) {
+		to.setAttribute("id", from.getId());
+		to.setAttribute("name", from.getName());
+		to.setAttribute("location", from.getLocation());
+		to.setAttribute("attendeesNumber", from.getAttendeesNumber());
+		to.setAttribute("startDate", from.getStartDate());
+		to.setAttribute("organizationName", from.getOrganizationName());
 	}
 }

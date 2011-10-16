@@ -19,8 +19,8 @@ public class PolishCalendarDev implements EntryPoint {
 	
 	public void onModuleLoad() {
 		
-		//ShortcutWindow shortcutWindow = new ShortcutWindow(); 
-		//Canvas scwindow_main_panel = shortcutWindow.buildShortcutPanel();
+		ShortcutWindow shortcutWindow = new ShortcutWindow(); 
+		Canvas content = shortcutWindow.buildShortcutPanel();
 		
 		//LoginPage loginPage = new LoginPage();
 		//Canvas content = loginPage.buildLoginPage();
@@ -28,8 +28,8 @@ public class PolishCalendarDev implements EntryPoint {
 		//SearchPage search_page = new SearchPage();
 		//Canvas content = search_page.build();
 		
-		CalendarPage caldendar_page = new CalendarPage();
-		Canvas content = caldendar_page.build();
+		//CalendarPage caldendar_page = new CalendarPage();
+		//Canvas content = caldendar_page.build();
 		
 		//AccountSettingsPage settingsPage = new AccountSettingsPage();
 		//Canvas content = settingsPage.build();

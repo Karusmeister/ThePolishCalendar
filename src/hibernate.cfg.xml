@@ -13,7 +13,7 @@
     <property name="hbm2ddl.auto">update</property>
     
     <!-- Add your mappings here -->
-    <mapping resource="org/polishcalendar/shared/Event.hbm.xml"/>
+    <mapping resource="org/polishcalendar/server/persistence/Event.hbm.xml"/>
   </session-factory>
 
 </hibernate-configuration>

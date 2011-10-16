@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.polishcalendar.server.persistence">
+    <class name="Event" table="EVENTS">
+        <id name="id" column="EVENT_ID">
+            <generator class="native"/>
+        </id>
+        <property name="name"/>
+        <property name="location"/>
+        <property name="attendeesNumber"/>
+        <property type="date" name="creationDate"/> 
+        
+        <set name="attendees" table="ATTENDING_USERS">
+        	<key column="EVENT_ID"/>
+        	<many-to-many class="User" column="USER_ID"/>
+        </set>   
+		<many-to-one name="organizationId"
+					 class="Organization"
+					 column="ORGANIZATION_ID"
+					 not-null="true"/>
+    </class>
+</hibernate-mapping>
