@@ -10,4 +10,6 @@ public interface OrganizationService extends RemoteService  {
 
 	OrganizationDTO addOrganization(OrganizationDTO organization);
 	OrganizationDTO removeOrganization(OrganizationDTO organization);
+	OrganizationDTO updateOrganization(OrganizationDTO organization);
+	OrganizationDTO fetchOrganization(OrganizationDTO organization);
 }

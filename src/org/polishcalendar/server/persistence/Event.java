@@ -17,7 +17,7 @@ public class Event implements Serializable{
 	private Date startDate;
 	private Date creationDate;
 	private Set<User> attendees;
-	private int organizationId;
+	private Organization organization;
 	
 	//TODO many-to-many with attending users
 	
@@ -78,12 +78,12 @@ public class Event implements Serializable{
 		this.attendees = attendees;
 	}
 
-	public void setOrganizationId(int organizationId) {
-		this.organizationId = organizationId;
+	public Organization getOrganization() {
+		return organization;
 	}
 
-	public int getOrganizationId() {
-		return organizationId;
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
 	}
 
 	public Event() {}
@@ -92,7 +92,7 @@ public class Event implements Serializable{
 	// for debugging
 	public String toString() {
 		return "Name: " + name + "\n" +
-			   "Organized by: " + organizationId + "\n" +
+			   "Organized by: " + organization + "\n" +
 			   "Date: " + startDate + "\n" +
 			   "Index: " + id + "\n"; 
 	}

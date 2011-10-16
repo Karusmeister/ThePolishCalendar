@@ -4,8 +4,6 @@ package org.polishcalendar.client;
 import org.polishcalendar.client.util.AppConstants;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.widgets.Canvas;
 
@@ -19,8 +17,8 @@ public class PolishCalendarDev implements EntryPoint {
 	
 	public void onModuleLoad() {
 		
-		ShortcutWindow shortcutWindow = new ShortcutWindow(); 
-		Canvas content = shortcutWindow.buildShortcutPanel();
+		DBTestPanel shortcutWindow = new DBTestPanel(); 
+		Canvas content = shortcutWindow.build();
 		
 		//LoginPage loginPage = new LoginPage();
 		//Canvas content = loginPage.buildLoginPage();

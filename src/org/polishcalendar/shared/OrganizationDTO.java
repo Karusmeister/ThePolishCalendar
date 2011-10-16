@@ -61,4 +61,11 @@ public class OrganizationDTO implements Serializable {
 		this.followers = followers;
 	}
 	*/
+	public String toString() {
+		return ("OrganizationDTO " + 
+				" id: " + id +
+				" name: " + name + 
+				" followersNumber: " + followersNumber +
+				" description: " + description);
+	}
 }

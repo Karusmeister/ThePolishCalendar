@@ -10,4 +10,6 @@ public interface UserService extends RemoteService {
 
 	UserDTO addUser(UserDTO user);
 	UserDTO removeUser(UserDTO user);
+	UserDTO updateUser(UserDTO user);
+	UserDTO fetchUser(UserDTO user);
 }

@@ -11,4 +11,6 @@ public interface EventService extends RemoteService {
 
 	EventDTO addEvent(EventDTO e);
 	EventDTO deleteEvent(EventDTO e);
+	EventDTO updateEvent(EventDTO e);
+	EventDTO fetchEvent(EventDTO e);
 }

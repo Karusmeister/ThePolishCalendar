@@ -10,4 +10,8 @@ public interface UserServiceAsync {
 
 	void removeUser(UserDTO user, AsyncCallback<UserDTO> callback);
 
+	void updateUser(UserDTO user, AsyncCallback<UserDTO> callback);
+
+	void fetchUser(UserDTO user, AsyncCallback<UserDTO> callback);
+
 }

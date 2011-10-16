@@ -17,7 +17,7 @@
         	<key column="EVENT_ID"/>
         	<many-to-many class="User" column="USER_ID"/>
         </set>   
-		<many-to-one name="organizationId"
+		<many-to-one name="organization"
 					 class="Organization"
 					 column="ORGANIZATION_ID"
 					 not-null="true"/>

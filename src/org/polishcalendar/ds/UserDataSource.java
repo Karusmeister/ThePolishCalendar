@@ -17,20 +17,15 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 
 public class UserDataSource extends GwtRpcDataSource {
 	
-	private UserDataSource userDS = null;
+	private static UserDataSource userDS = null;
 	
-	public UserDataSource getUserDS() {
+	public static UserDataSource getUserDS() {
 		if (userDS == null) {
 			userDS = new UserDataSource("userDS");
 		}
 		return userDS;
 	}
-	/*
-	private String id;
-	private String name;
-	private Date joinedDate;
-	private String type;
-	*/
+	
 	private UserDataSource (String id) {
 		setID(id);
 		
@@ -51,16 +46,67 @@ public class UserDataSource extends GwtRpcDataSource {
 	}
 
 	@Override
-	protected void executeRemove(String requestId, DSRequest request,
-			DSResponse response) {
-		// TODO Auto-generated method stub
+	protected void executeRemove(final String requestId, final DSRequest request,
+			final DSResponse response) {
 		
+		// retriving record
+		JavaScriptObject js_data = request.getData();
+		ListGridRecord event_record = new ListGridRecord(js_data);
+		UserDTO user = new UserDTO();
+		copyValues(event_record, user);
+		
+		// creating service
+		UserServiceAsync service = GWT.create (UserService.class);
+		service.removeUser(user, new AsyncCallback<UserDTO>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+                response.setStatus (RPCResponse.STATUS_FAILURE);
+                processResponse (requestId, response);
+			}
+
+			@Override
+			public void onSuccess(UserDTO result) {
+                ListGridRecord[] list = new ListGridRecord[1];
+                ListGridRecord newRec = new ListGridRecord ();
+                copyValues (result, newRec);
+                list[0] = newRec;
+                response.setData (list);
+                processResponse (requestId, response);
+			}
+		});
 	}
 
 	@Override
-	protected void executeUpdate(String requestId, DSRequest request,
-			DSResponse response) {
-		// TODO Auto-generated method stub
+	protected void executeUpdate(final String requestId, final DSRequest request,
+			final DSResponse response) {
+		
+		// retriving record
+		JavaScriptObject js_data = request.getData();
+		ListGridRecord event_record = new ListGridRecord(js_data);
+		UserDTO user = new UserDTO();
+		copyValues(event_record, user);
+		
+		// creating service
+		UserServiceAsync service = GWT.create (UserService.class);
+		service.updateUser(user, new AsyncCallback<UserDTO>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+                response.setStatus (RPCResponse.STATUS_FAILURE);
+                processResponse (requestId, response);
+			}
+
+			@Override
+			public void onSuccess(UserDTO result) {
+                ListGridRecord[] list = new ListGridRecord[1];
+                ListGridRecord newRec = new ListGridRecord ();
+                copyValues (result, newRec);
+                list[0] = newRec;
+                response.setData (list);
+                processResponse (requestId, response);
+			}
+		});
 		
 	}
 
@@ -98,10 +144,35 @@ public class UserDataSource extends GwtRpcDataSource {
 	}
 
 	@Override
-	protected void executeFetch(String requestId, DSRequest request,
-			DSResponse response) {
-		// TODO Auto-generated method stub
+	protected void executeFetch(final String requestId, final DSRequest request,
+			final DSResponse response) {
 		
+		// retriving record
+		JavaScriptObject js_data = request.getData();
+		ListGridRecord event_record = new ListGridRecord(js_data);
+		UserDTO user = new UserDTO();
+		copyValues(event_record, user);
+		
+		// creating service
+		UserServiceAsync service = GWT.create (UserService.class);
+		service.fetchUser(user, new AsyncCallback<UserDTO>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+                response.setStatus (RPCResponse.STATUS_FAILURE);
+                processResponse (requestId, response);
+			}
+
+			@Override
+			public void onSuccess(UserDTO result) {
+                ListGridRecord[] list = new ListGridRecord[1];
+                ListGridRecord newRec = new ListGridRecord ();
+                copyValues (result, newRec);
+                list[0] = newRec;
+                response.setData (list);
+                processResponse (requestId, response);
+			}
+		});
 	}
 	
 	

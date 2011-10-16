@@ -75,4 +75,11 @@ public class UserDTO implements Serializable {
 		return attendingEvents;
 	}
 	*/
+	public String toString() {
+		return (" UserDTO: " + 
+			    " id: " + id +
+			    " name: " + name + 
+			    " joinedDate: " + joinedDate + 
+			    " type: " + type);
+	}
 }

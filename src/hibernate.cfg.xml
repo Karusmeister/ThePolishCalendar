@@ -14,6 +14,9 @@
     
     <!-- Add your mappings here -->
     <mapping resource="org/polishcalendar/server/persistence/Event.hbm.xml"/>
+    <mapping resource="org/polishcalendar/server/persistence/User.hbm.xml"/>
+    <mapping resource="org/polishcalendar/server/persistence/Organization.hbm.xml"/>
+    
   </session-factory>
 
 </hibernate-configuration>

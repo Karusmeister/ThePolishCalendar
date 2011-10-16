@@ -89,24 +89,97 @@ public class EventDataSource extends GwtRpcDataSource {
 	}
 
 	@Override
-	protected void executeFetch(String requestId, DSRequest request,
-			DSResponse response) {
-		// TODO Auto-generated method stub
+	protected void executeFetch(final String requestId, final DSRequest request,
+			final DSResponse response) {
 		
+		// retriving record
+		JavaScriptObject js_data = request.getData();
+		ListGridRecord event_record = new ListGridRecord(js_data);
+		EventDTO event = new EventDTO();
+		copyValues(event_record, event);
+		
+		// creating service
+		EventServiceAsync service = GWT.create (EventService.class);
+		service.fetchEvent(event, new AsyncCallback<EventDTO>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+                response.setStatus (RPCResponse.STATUS_FAILURE);
+                processResponse (requestId, response);
+			}
+
+			@Override
+			public void onSuccess(EventDTO result) {
+                ListGridRecord[] list = new ListGridRecord[1];
+                ListGridRecord newRec = new ListGridRecord ();
+                copyValues (result, newRec);
+                list[0] = newRec;
+                response.setData (list);
+                processResponse (requestId, response);
+			}		
+		});
 	}
 
 	@Override
-	protected void executeRemove(String requestId, DSRequest request,
-			DSResponse response) {
-		// TODO Auto-generated method stub
+	protected void executeRemove(final String requestId, final DSRequest request,
+			final DSResponse response) {
+		// retriving record
+		JavaScriptObject js_data = request.getData();
+		ListGridRecord event_record = new ListGridRecord(js_data);
+		EventDTO event = new EventDTO();
+		copyValues(event_record, event);
 		
+		// creating service
+		EventServiceAsync service = GWT.create (EventService.class);
+		service.deleteEvent(event, new AsyncCallback<EventDTO>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+                response.setStatus (RPCResponse.STATUS_FAILURE);
+                processResponse (requestId, response);
+			}
+
+			@Override
+			public void onSuccess(EventDTO result) {
+                ListGridRecord[] list = new ListGridRecord[1];
+                ListGridRecord newRec = new ListGridRecord ();
+                copyValues (result, newRec);
+                list[0] = newRec;
+                response.setData (list);
+                processResponse (requestId, response);
+			}		
+		});
 	}
 
 	@Override
-	protected void executeUpdate(String requestId, DSRequest request,
-			DSResponse response) {
-		// TODO Auto-generated method stub
+	protected void executeUpdate(final String requestId, final DSRequest request,
+			final DSResponse response) {
+		// retriving record
+		JavaScriptObject js_data = request.getData();
+		ListGridRecord event_record = new ListGridRecord(js_data);
+		EventDTO event = new EventDTO();
+		copyValues(event_record, event);
 		
+		// creating service
+		EventServiceAsync service = GWT.create (EventService.class);
+		service.updateEvent(event, new AsyncCallback<EventDTO>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+                response.setStatus (RPCResponse.STATUS_FAILURE);
+                processResponse (requestId, response);
+			}
+
+			@Override
+			public void onSuccess(EventDTO result) {
+                ListGridRecord[] list = new ListGridRecord[1];
+                ListGridRecord newRec = new ListGridRecord ();
+                copyValues (result, newRec);
+                list[0] = newRec;
+                response.setData (list);
+                processResponse (requestId, response);
+			}		
+		});
 	}
 	
 	/* Copy values between ListGridRecord for view and EventDTO. */

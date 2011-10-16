@@ -11,4 +11,8 @@ public interface EventServiceAsync {
 
 	void deleteEvent(EventDTO e, AsyncCallback<EventDTO> callback);
 
+	void updateEvent(EventDTO e, AsyncCallback<EventDTO> callback);
+
+	void fetchEvent(EventDTO e, AsyncCallback<EventDTO> callback);
+
 }

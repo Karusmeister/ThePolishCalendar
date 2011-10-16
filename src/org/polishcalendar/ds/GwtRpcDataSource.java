@@ -41,15 +41,15 @@ public abstract class GwtRpcDataSource extends DataSource {
     }
     
 
-    protected abstract void executeRemove(String requestId, DSRequest request,
-			DSResponse response);
+    protected abstract void executeRemove(final String requestId, final DSRequest request,
+			final DSResponse response);
 
-    protected abstract void executeUpdate(String requestId, DSRequest request,
-			DSResponse response);
+    protected abstract void executeUpdate(final String requestId, final DSRequest request,
+			final DSResponse response);
     
-    protected abstract void executeAdd(String requestId, DSRequest request,
-			DSResponse response);
+    protected abstract void executeAdd(final String requestId, final DSRequest request,
+			final DSResponse response);
 
-    protected abstract void executeFetch(String requestId, DSRequest request,
-			DSResponse response);
+    protected abstract void executeFetch(final String requestId, final DSRequest request,
+			final DSResponse response);
 }

@@ -12,4 +12,10 @@ public interface OrganizationServiceAsync {
 	void removeOrganization(OrganizationDTO organization,
 			AsyncCallback<OrganizationDTO> callback);
 
+	void updateOrganization(OrganizationDTO organization,
+			AsyncCallback<OrganizationDTO> callback);
+
+	void fetchOrganization(OrganizationDTO organization,
+			AsyncCallback<OrganizationDTO> callback);
+
 }
