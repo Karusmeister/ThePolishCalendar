@@ -12,4 +12,8 @@ public class AppConstants {
 	// Main page event creator popup
 	public static final int EVCREATOR_POPUP_WIDTH = 600;
 	public static final int EVCREATOR_POPUP_HEIGHT = 500;
+	
+	// Possible user type
+	public static final String NORMAL_TYPE = "N";
+	public static final String ORG_TYPE = "O";
 }
