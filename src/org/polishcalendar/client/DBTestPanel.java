@@ -5,6 +5,9 @@ import org.polishcalendar.ds.EventDataSource;
 import org.polishcalendar.ds.OrganizationDataSource;
 import org.polishcalendar.ds.UserDataSource;
 
+import com.smartgwt.client.data.DSCallback;
+import com.smartgwt.client.data.DSRequest;
+import com.smartgwt.client.data.DSResponse;
 import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -12,6 +15,7 @@ import com.smartgwt.client.widgets.events.CloseClickHandler;
 import com.smartgwt.client.widgets.events.CloseClientEvent;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout; 
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Canvas;
@@ -85,7 +89,8 @@ public class DBTestPanel {
 	}
 	
 	
-	private Canvas buildWindowContent(DataSource ds) {
+	private Canvas buildWindowContent(final DataSource ds) {
+		
         VLayout output = new VLayout();  
         
         final ListGrid main_grid = new ListGrid();  
@@ -112,13 +117,43 @@ public class DBTestPanel {
 				main_grid.saveAllEdits();
 			}
 		});
+        
+        Button auto_update = new Button("Auto Update");
+        auto_update.addClickHandler(new ClickHandler() {
+        	@Override
+        	public void onClick(ClickEvent event) {
+        		ListGridRecord record = main_grid.getRecord(1);
+        		record.setAttribute("name", "TESTUJE KURWA");
+        		ds.updateData(record);
+        	}
+        });
+        
+        Button fetch = new Button("Fetch Data");
+        fetch.addClickHandler(new ClickHandler() {
+        	@Override
+        	public void onClick(ClickEvent event) {
+        		ds.fetchData(null, new DSCallback() {
+
+					@Override
+					public void execute(DSResponse response, Object rawData,
+							DSRequest request) {
+						main_grid.setData(response.getData());
+					}
+        			
+        		});
+        	}
+        });
   
         main_grid.setDataSource(ds);
         
+        HLayout buttons = new HLayout();
+        buttons.addMember(new_record);
+        buttons.addMember(save);
+        buttons.addMember(auto_update);
+        buttons.addMember(fetch);
+        
         output.addMember(main_grid);
-        output.addMember(new_record);
-        output.addMember(save);
-		
+        output.addMember(buttons);
 		return output;
 	}
 }
