@@ -7,6 +7,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Overflow;
+import com.smartgwt.client.util.Page;
 import com.smartgwt.client.widgets.Canvas;
 
 
@@ -38,10 +39,11 @@ public class PolishCalendarDev implements EntryPoint {
 		content.setHeight100();
 		content.setOverflow(Overflow.VISIBLE);
 		outmost_element = new Canvas();
-		outmost_element.setWidth(AppConstants.MAIN_PAGE_WIDTH);
-		outmost_element.setHeight(AppConstants.MAIN_PAGE_HEIGHT);
+		outmost_element.setWidth(Page.getScreenWidth());
+		outmost_element.setHeight(Page.getScreenHeight());
 		outmost_element.addChild(content);
 		outmost_element.setOverflow(Overflow.VISIBLE);
+		outmost_element.setBackgroundColor("#db172d");
 		outmost_element.draw();
 	}
 	

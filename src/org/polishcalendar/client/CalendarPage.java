@@ -5,6 +5,7 @@ import org.polishcalendar.ds.LocPrefDS;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.ListGridFieldType;
+import com.smartgwt.client.types.Positioning;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.HTMLFlow;
@@ -45,6 +46,7 @@ public class CalendarPage {
 		Canvas top_panel = buildTopPanel();
 		Canvas bottom_panel = buildBottomPanel();
 		Canvas main_panel = buildMainPanel();
+		main_panel.setPadding(10);
 		
 		// layouting 
 		VLayout output = new VLayout();
@@ -57,6 +59,10 @@ public class CalendarPage {
 		main_panel.setWidth100();
 		main_panel.setHeight("*");
 		output.addMember(main_panel);
+		
+		bottom_panel.setWidth100();
+		bottom_panel.setHeight("10%");
+		output.addMember(bottom_panel);
 		
 		return output;
 	}
@@ -193,9 +199,7 @@ public class CalendarPage {
 	
 	private Canvas buildBottomPanel() {
 		
-		// TODO stub
-		
-		return null;
+		return (new BottomPanel().build());	
 	}
 	
 	/* Components */
@@ -205,7 +209,7 @@ public class CalendarPage {
 		buttons_layout.setMembersMargin(5);
 		
 		Button all_events = new Button("Show All Events");
-		all_events.setWidth100();
+		all_events.setWidth("50%");
 		buttons_layout.addMember(all_events);
 		all_events.addClickHandler(new ClickHandler() {
 			@Override
@@ -215,7 +219,7 @@ public class CalendarPage {
 		});
 		
 		Button attending_events = new Button("Show Events I am Attending");
-		attending_events.setWidth100();
+		attending_events.setWidth("50%");
 		buttons_layout.addMember(attending_events);
 		attending_events.addClickHandler(new ClickHandler() {
 			@Override
@@ -224,8 +228,8 @@ public class CalendarPage {
 			}
 		});
 		
-		Button preference_events = new Button("Show Events Matching My Preferences");
-		preference_events.setWidth100();
+		Button preference_events = new Button("Show Events Matching My Prefs");
+		preference_events.setWidth("50%");
 		buttons_layout.addMember(preference_events);
 		preference_events.addClickHandler(new ClickHandler() {
 			@Override
@@ -261,7 +265,7 @@ public class CalendarPage {
 		output.addMember(spacer);
 		
 		Button orgs_b = new Button("My Organizations");
-		orgs_b.setWidth100();
+		orgs_b.setWidth("50%");
 		orgs_b.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -272,7 +276,7 @@ public class CalendarPage {
 		output.addMember(orgs_b);
 		
 		Button pref_b = new Button("My Preferences");
-		pref_b.setWidth100();
+		pref_b.setWidth("50%");
 		pref_b.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) { 
@@ -292,11 +296,11 @@ public class CalendarPage {
 		output.setMembersMargin(5);
 		
 		Button manage_events_b = new Button("Manage Events");
-		manage_events_b.setWidth100();
+		manage_events_b.setWidth("50%");
 		output.addMember(manage_events_b);
 		
 		Button new_events_b =  new Button("Create New Events");
-		new_events_b.setWidth100();
+		new_events_b.setWidth("50%");
 		new_events_b.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -304,10 +308,10 @@ public class CalendarPage {
 				creator_popup.show();  
 			}
 		});
-		output.addMember(new_events_b);
+		//output.addMember(new_events_b);
 		
 		Button import_b = new Button("Import Existing Calendar");
-		import_b.setWidth100();
+		import_b.setWidth("50%");
 		output.addMember(import_b);
 		
 		return output;
