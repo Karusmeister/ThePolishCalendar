@@ -1,16 +1,28 @@
 package org.polishcalendar.client;
 
+import com.smartgwt.client.util.Page;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.Layout;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 public class TopPanel {
 
 	public Layout build () {
-		HLayout upper_toolbar = new HLayout();
+		VLayout output = new VLayout();
+		Img logo = new Img("logo.jpg");
+		logo.setWidth(Page.getScreenWidth());
+		output.setHeight("15%");
+		output.addMember(logo);
+		
+		
+		HLayout upper_toolbar = new HLayout(); 
+		upper_toolbar.setPadding(10);
+		
 		Button home_page = new Button("Home Page");
 		Button logout_button = new Button("Logout");
 		Button preference_button = new Button("Preferences");
@@ -20,7 +32,7 @@ public class TopPanel {
 		
 		// Creating appearance 
 		// Each button would stretch for stretch% of available width
-		String stretch = "20%";
+		String stretch = "10%";
 		home_page.setWidth(stretch);  
 		home_page.setShowRollOver(true);  
 		home_page.setShowDisabled(true);  
@@ -96,6 +108,8 @@ public class TopPanel {
 		upper_toolbar.addMember(contant_button);
 		upper_toolbar.addMember(logout_button);
 		
-		return upper_toolbar;
+		
+		output.addMember(upper_toolbar);
+		return output;
 	}
 }
