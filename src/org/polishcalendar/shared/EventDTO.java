@@ -13,6 +13,7 @@ public class EventDTO implements Serializable{
 	private int id;
 	private int attendeesNumber;
 	private Date startDate;
+	private Date endDate;
 	
 	public EventDTO() { };
 	
@@ -59,6 +60,14 @@ public class EventDTO implements Serializable{
 		this.attendeesNumber = attendeesNumber;
 	}
 	
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
 	/*
 	public OrganizationDTO getOrganization() {
 		return organization;

@@ -1,8 +1,15 @@
 package org.polishcalendar.client;
 
-import org.polishcalendar.client.util.AppConstants;
-import org.polishcalendar.ds.LocPrefDS;
+import java.util.LinkedList;
+import java.util.List;
 
+import org.polishcalendar.client.util.AppConstants;
+import org.polishcalendar.ds.EventDataSource;
+import org.polishcalendar.ds.LocPrefDS;
+import org.polishcalendar.shared.EventDTO;
+
+import com.smartgwt.client.data.Record;
+import com.smartgwt.client.data.RecordList;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.ListGridFieldType;
 import com.smartgwt.client.types.Positioning;
@@ -41,13 +48,26 @@ public class CalendarPage {
 	
 	private Calendar calendar;
 
+	private static List<EventDTO> convert(RecordList list){
+		List<EventDTO> res = new LinkedList<EventDTO>();
+		
+		for(int i = 0 ; i < list.getLength(); i++){
+			EventDTO event = new EventDTO();
+			EventDataSource.getEventDS().copyValues(list.get(i), event);
+			res.add(event);
+		}
+		
+		return res;
+		
+	}
+	
+	
 	public Canvas build() {
 		
 		Canvas top_panel = buildTopPanel();
 		Canvas bottom_panel = buildBottomPanel();
 		Canvas main_panel = buildMainPanel();
 		main_panel.setPadding(10);
-		
 		// layouting 
 		VLayout output = new VLayout();
 		output.setMembersMargin(10);
@@ -187,6 +207,16 @@ public class CalendarPage {
 		cal_buttons_l.setMembersMargin(10);
 		Button export_b = new Button("Export Calendar View");
 		export_b.setWidth(150);
+		
+//		export_b.addClickHandler(new ClickHandler(){
+//
+////			@Override
+////			public void onClick(ClickEvent event) {
+////					List<EventDTO> list = convert(calendar.getRecordList());		
+////			}
+//		}
+//		);
+		
 		cal_buttons_l.addMember(export_b);
 		cal_layout.addMember(cal_buttons_l);
 		

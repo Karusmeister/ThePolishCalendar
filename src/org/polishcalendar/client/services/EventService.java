@@ -1,6 +1,8 @@
 package org.polishcalendar.client.services;
 
 
+import java.util.List;
+
 import org.polishcalendar.shared.EventDTO;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -10,7 +12,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface EventService extends RemoteService {
 
 	EventDTO addEvent(EventDTO e);
-	EventDTO deleteEvent(EventDTO e);
+	void deleteEvent(EventDTO e);
 	EventDTO updateEvent(EventDTO e);
-	EventDTO fetchEvent(EventDTO e);
+	List<EventDTO> fetchEvent();
 }

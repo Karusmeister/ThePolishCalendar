@@ -1,6 +1,8 @@
 package org.polishcalendar.server;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +47,7 @@ public class EventServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public EventDTO deleteEvent(EventDTO event_dto) {
+	public void deleteEvent(EventDTO event_dto) {
 		logger.debug("Executing event delete");
 		logger.debug(event_dto.toString());
 		
@@ -58,7 +60,6 @@ public class EventServiceImpl extends RemoteServiceServlet implements
 			session.delete(event_record);
 		}
         session.getTransaction().commit();
-		return event_dto;
 	}
 
 	@Override
@@ -82,18 +83,28 @@ public class EventServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public EventDTO fetchEvent(EventDTO event_dto) {
+	public List<EventDTO> fetchEvent() {
 		logger.debug("Executing event fetch");
-		logger.debug(event_dto.toString());
+		List<EventDTO> output = new ArrayList<EventDTO>();
 		
 		// Fetching Event object
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		Event event_record = (Event)session.load(Event.class, event_dto.getId());
-		MappingUtils.copyValues(event_dto, event_record);
+		
+		Query q = session.createQuery("from Event");
+		@SuppressWarnings("unchecked")
+		List<Event> events = (List<Event>)q.list();
+		
+		for (Event event_record : events) {
+			EventDTO event_dto = new EventDTO();
+			MappingUtils.copyValues(event_dto, event_record);
+			output.add(event_dto);
+		}
+		
 		session.getTransaction().commit();
-
-		return event_dto;
+		
+		
+		return output;
 	}
 
 }

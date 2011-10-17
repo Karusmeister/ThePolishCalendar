@@ -327,22 +327,22 @@ public class MockData {
 			setAttribute("name" , name);
 		}
 		public String getOrganizedBy() {
-			return getAttributeAsString("organized_by");
+			return getAttributeAsString("organization");
 		}
 		public void setOrganizedBy(String organizedBy) {
-			setAttribute("organized_by" , organizedBy);
+			setAttribute("organization" , organizedBy);
 		}
 		public Date getDate() {
-			return this.getAttributeAsDate("date");
+			return this.getAttributeAsDate("startDate");
 		}
 		public void setDate(Date date) {
-			setAttribute("date" , date);
+			setAttribute("startDate" , date);
 		}
 		public int getIndex() {
-			return getAttributeAsInt("index");
+			return getAttributeAsInt("id");
 		}
 		public void setIndex(int index) {
-			setAttribute("index" , index);
+			setAttribute("id" , index);
 		}
 	}
 	

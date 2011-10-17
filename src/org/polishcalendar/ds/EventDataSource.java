@@ -1,5 +1,7 @@
 package org.polishcalendar.ds;
 
+import java.util.List;
+
 import org.polishcalendar.client.services.EventService;
 import org.polishcalendar.client.services.EventServiceAsync;
 import org.polishcalendar.shared.EventDTO;
@@ -9,18 +11,19 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
-import com.smartgwt.client.data.DataSource;
+import com.smartgwt.client.data.Record;
 import com.smartgwt.client.data.fields.DataSourceDateField;
 import com.smartgwt.client.data.fields.DataSourceIntegerField;
 import com.smartgwt.client.data.fields.DataSourceTextField;
 import com.smartgwt.client.rpc.RPCResponse;
+import com.smartgwt.client.util.JSOHelper;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
 public class EventDataSource extends GwtRpcDataSource {
 
 	private static EventDataSource event_ds = null;
 	
-	public static DataSource getEventDS() {
+	public static EventDataSource getEventDS() {
 		if (event_ds == null) {
 			event_ds = new EventDataSource("eventDS");
 		}
@@ -92,15 +95,9 @@ public class EventDataSource extends GwtRpcDataSource {
 	protected void executeFetch(final String requestId, final DSRequest request,
 			final DSResponse response) {
 		
-		// retriving record
-		JavaScriptObject js_data = request.getData();
-		ListGridRecord event_record = new ListGridRecord(js_data);
-		EventDTO event = new EventDTO();
-		copyValues(event_record, event);
-		
 		// creating service
 		EventServiceAsync service = GWT.create (EventService.class);
-		service.fetchEvent(event, new AsyncCallback<EventDTO>() {
+		service.fetchEvent(new AsyncCallback<List<EventDTO>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -109,14 +106,16 @@ public class EventDataSource extends GwtRpcDataSource {
 			}
 
 			@Override
-			public void onSuccess(EventDTO result) {
-                ListGridRecord[] list = new ListGridRecord[1];
-                ListGridRecord newRec = new ListGridRecord ();
-                copyValues (result, newRec);
-                list[0] = newRec;
+			public void onSuccess(List<EventDTO> result) {
+                ListGridRecord[] list = new ListGridRecord[result.size ()];
+                for (int i = 0; i < list.length; i++) {
+                    ListGridRecord record = new ListGridRecord ();
+                    copyValues (result.get (i), record);
+                    list[i] = record;
+                }
                 response.setData (list);
                 processResponse (requestId, response);
-			}		
+			}	
 		});
 	}
 
@@ -131,7 +130,7 @@ public class EventDataSource extends GwtRpcDataSource {
 		
 		// creating service
 		EventServiceAsync service = GWT.create (EventService.class);
-		service.deleteEvent(event, new AsyncCallback<EventDTO>() {
+		service.deleteEvent(event, new AsyncCallback<Void>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -140,14 +139,11 @@ public class EventDataSource extends GwtRpcDataSource {
 			}
 
 			@Override
-			public void onSuccess(EventDTO result) {
+			public void onSuccess(Void result) {
                 ListGridRecord[] list = new ListGridRecord[1];
-                ListGridRecord newRec = new ListGridRecord ();
-                copyValues (result, newRec);
-                list[0] = newRec;
                 response.setData (list);
                 processResponse (requestId, response);
-			}		
+			}	
 		});
 	}
 
@@ -155,8 +151,7 @@ public class EventDataSource extends GwtRpcDataSource {
 	protected void executeUpdate(final String requestId, final DSRequest request,
 			final DSResponse response) {
 		// retriving record
-		JavaScriptObject js_data = request.getData();
-		ListGridRecord event_record = new ListGridRecord(js_data);
+        ListGridRecord event_record = getEditedRecord (request);
 		EventDTO event = new EventDTO();
 		copyValues(event_record, event);
 		
@@ -183,7 +178,7 @@ public class EventDataSource extends GwtRpcDataSource {
 	}
 	
 	/* Copy values between ListGridRecord for view and EventDTO. */
-	private static void copyValues(ListGridRecord from, EventDTO to) {
+	public void copyValues(Record from, EventDTO to) {
 		to.setName(from.getAttributeAsString("name"));
 		to.setId(from.getAttributeAsInt("id"));
 		to.setLocation(from.getAttributeAsString("location"));
@@ -192,7 +187,7 @@ public class EventDataSource extends GwtRpcDataSource {
 		to.setOrganizationName(from.getAttributeAsString("organizationName"));
 	}
 	
-	private static void copyValues(EventDTO from, ListGridRecord to) {
+	public void copyValues(EventDTO from, Record to) {
 		to.setAttribute("id", from.getId());
 		to.setAttribute("name", from.getName());
 		to.setAttribute("location", from.getLocation());
@@ -200,4 +195,18 @@ public class EventDataSource extends GwtRpcDataSource {
 		to.setAttribute("startDate", from.getStartDate());
 		to.setAttribute("organizationName", from.getOrganizationName());
 	}
+	
+    private ListGridRecord getEditedRecord (DSRequest request) {
+        // Retrieving values before edit
+        JavaScriptObject oldValues = request.getAttributeAsJavaScriptObject ("oldValues");
+        // Creating new record for combining old values with changes
+        ListGridRecord newRecord = new ListGridRecord ();
+        // Copying properties from old record
+        JSOHelper.apply (oldValues, newRecord.getJsObj ());
+        // Retrieving changed values
+        JavaScriptObject data = request.getData ();
+        // Apply changes
+        JSOHelper.apply (data, newRecord.getJsObj ());
+        return newRecord;
+    }
 }
