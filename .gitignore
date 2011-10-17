@@ -2,3 +2,7 @@ war/polishcalendardev/*
 war/WEB-INF/classes/*
 war/WEB-INF/deploy/*
 war/logs/*
+.classpath
+.gwt/
+.project
+.settings/
