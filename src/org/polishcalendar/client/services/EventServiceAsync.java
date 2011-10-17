@@ -1,13 +1,18 @@
 package org.polishcalendar.client.services;
 
-import org.polishcalendar.shared.Event;
+
+import org.polishcalendar.shared.EventDTO;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface EventServiceAsync {
 
-	void addEvent(Event e, AsyncCallback<Event> callback);
+	void addEvent(EventDTO e, AsyncCallback<EventDTO> callback);
 
-	void deleteEvent(Event e, AsyncCallback<Event> callback);
+	void deleteEvent(EventDTO e, AsyncCallback<EventDTO> callback);
+
+	void updateEvent(EventDTO e, AsyncCallback<EventDTO> callback);
+
+	void fetchEvent(EventDTO e, AsyncCallback<EventDTO> callback);
 
 }

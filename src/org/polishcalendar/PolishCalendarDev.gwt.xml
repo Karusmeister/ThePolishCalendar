@@ -13,7 +13,6 @@
 
   <!-- Other module inherits                                      -->
   <inherits name="com.smartgwt.SmartGwt"/>
-  <inherits name='net.sf.gilead.Gilead4Gwt'/>
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='org.polishcalendar.client.PolishCalendarDev'/>
