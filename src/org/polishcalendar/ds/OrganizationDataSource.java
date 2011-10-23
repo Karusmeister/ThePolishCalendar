@@ -1,5 +1,7 @@
 package org.polishcalendar.ds;
 
+import java.util.List;
+
 import org.polishcalendar.client.services.OrganizationService;
 import org.polishcalendar.client.services.OrganizationServiceAsync;
 import org.polishcalendar.shared.OrganizationDTO;
@@ -55,13 +57,13 @@ public class OrganizationDataSource extends GwtRpcDataSource {
 		
 		// retriving record
 		JavaScriptObject js_data = request.getData();
-		ListGridRecord event_record = new ListGridRecord(js_data);
-		OrganizationDTO organization = new OrganizationDTO();
-		copyValues(event_record, organization);
+		ListGridRecord org_record = new ListGridRecord(js_data);
+		OrganizationDTO org = new OrganizationDTO();
+		copyValues(org_record, org);
 		
 		// creating service
 		OrganizationServiceAsync service = GWT.create (OrganizationService.class);
-		service.removeOrganization(organization, new AsyncCallback<OrganizationDTO>() {
+		service.removeOrganization(org, new AsyncCallback<Void>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -70,14 +72,11 @@ public class OrganizationDataSource extends GwtRpcDataSource {
 			}
 
 			@Override
-			public void onSuccess(OrganizationDTO result) {
+			public void onSuccess(Void result) {
                 ListGridRecord[] list = new ListGridRecord[1];
-                ListGridRecord newRec = new ListGridRecord ();
-                copyValues (result, newRec);
-                list[0] = newRec;
                 response.setData (list);
                 processResponse (requestId, response);
-			}		
+			}	
 		});
 		
 	}
@@ -87,8 +86,7 @@ public class OrganizationDataSource extends GwtRpcDataSource {
 			final DSResponse response) {
 		
 		// retriving record
-		JavaScriptObject js_data = request.getData();
-		ListGridRecord event_record = new ListGridRecord(js_data);
+		ListGridRecord event_record = DSUtils.getEditedRecord(request);
 		OrganizationDTO organization = new OrganizationDTO();
 		copyValues(event_record, organization);
 		
@@ -150,15 +148,9 @@ public class OrganizationDataSource extends GwtRpcDataSource {
 	protected void executeFetch(final String requestId, final DSRequest request,
 			final DSResponse response) {
 		
-		// retriving record
-		JavaScriptObject js_data = request.getData();
-		ListGridRecord event_record = new ListGridRecord(js_data);
-		OrganizationDTO organization = new OrganizationDTO();
-		copyValues(event_record, organization);
-		
 		// creating service
 		OrganizationServiceAsync service = GWT.create (OrganizationService.class);
-		service.fetchOrganization(organization, new AsyncCallback<OrganizationDTO>() {
+		service.fetchOrganization(new AsyncCallback<List<OrganizationDTO>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -167,14 +159,16 @@ public class OrganizationDataSource extends GwtRpcDataSource {
 			}
 
 			@Override
-			public void onSuccess(OrganizationDTO result) {
-                ListGridRecord[] list = new ListGridRecord[1];
-                ListGridRecord newRec = new ListGridRecord ();
-                copyValues (result, newRec);
-                list[0] = newRec;
+			public void onSuccess(List<OrganizationDTO> result) {
+                ListGridRecord[] list = new ListGridRecord[result.size ()];
+                for (int i = 0; i < list.length; i++) {
+                    ListGridRecord record = new ListGridRecord ();
+                    copyValues (result.get (i), record);
+                    list[i] = record;
+                }
                 response.setData (list);
                 processResponse (requestId, response);
-			}		
+			}	
 		});
 	}
 	

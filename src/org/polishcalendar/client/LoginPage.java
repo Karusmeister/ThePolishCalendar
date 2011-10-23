@@ -1,9 +1,6 @@
 package org.polishcalendar.client;
 
-import sun.reflect.generics.visitor.Reifier;
-
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Canvas;  

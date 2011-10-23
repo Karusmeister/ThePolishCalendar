@@ -1,5 +1,7 @@
 package org.polishcalendar.client.services;
 
+import java.util.List;
+
 import org.polishcalendar.shared.UserDTO;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -9,7 +11,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface UserService extends RemoteService {
 
 	UserDTO addUser(UserDTO user);
-	UserDTO removeUser(UserDTO user);
+	void removeUser(UserDTO user);
 	UserDTO updateUser(UserDTO user);
-	UserDTO fetchUser(UserDTO user);
+	List<UserDTO> fetchUser();
 }

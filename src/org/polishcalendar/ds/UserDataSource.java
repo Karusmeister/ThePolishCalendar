@@ -1,5 +1,7 @@
 package org.polishcalendar.ds;
 
+import java.util.List;
+
 import org.polishcalendar.client.services.UserService;
 import org.polishcalendar.client.services.UserServiceAsync;
 import org.polishcalendar.shared.UserDTO;
@@ -57,7 +59,7 @@ public class UserDataSource extends GwtRpcDataSource {
 		
 		// creating service
 		UserServiceAsync service = GWT.create (UserService.class);
-		service.removeUser(user, new AsyncCallback<UserDTO>() {
+		service.removeUser(user, new AsyncCallback<Void>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -66,14 +68,11 @@ public class UserDataSource extends GwtRpcDataSource {
 			}
 
 			@Override
-			public void onSuccess(UserDTO result) {
+			public void onSuccess(Void result) {
                 ListGridRecord[] list = new ListGridRecord[1];
-                ListGridRecord newRec = new ListGridRecord ();
-                copyValues (result, newRec);
-                list[0] = newRec;
                 response.setData (list);
                 processResponse (requestId, response);
-			}
+			}	
 		});
 	}
 
@@ -82,10 +81,9 @@ public class UserDataSource extends GwtRpcDataSource {
 			final DSResponse response) {
 		
 		// retriving record
-		JavaScriptObject js_data = request.getData();
-		ListGridRecord event_record = new ListGridRecord(js_data);
+        ListGridRecord user_record = DSUtils.getEditedRecord (request);
 		UserDTO user = new UserDTO();
-		copyValues(event_record, user);
+		copyValues(user_record, user);
 		
 		// creating service
 		UserServiceAsync service = GWT.create (UserService.class);
@@ -147,15 +145,9 @@ public class UserDataSource extends GwtRpcDataSource {
 	protected void executeFetch(final String requestId, final DSRequest request,
 			final DSResponse response) {
 		
-		// retriving record
-		JavaScriptObject js_data = request.getData();
-		ListGridRecord event_record = new ListGridRecord(js_data);
-		UserDTO user = new UserDTO();
-		copyValues(event_record, user);
-		
 		// creating service
 		UserServiceAsync service = GWT.create (UserService.class);
-		service.fetchUser(user, new AsyncCallback<UserDTO>() {
+		service.fetchUser(new AsyncCallback<List<UserDTO>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -164,14 +156,16 @@ public class UserDataSource extends GwtRpcDataSource {
 			}
 
 			@Override
-			public void onSuccess(UserDTO result) {
-                ListGridRecord[] list = new ListGridRecord[1];
-                ListGridRecord newRec = new ListGridRecord ();
-                copyValues (result, newRec);
-                list[0] = newRec;
+			public void onSuccess(List<UserDTO> result) {
+                ListGridRecord[] list = new ListGridRecord[result.size ()];
+                for (int i = 0; i < list.length; i++) {
+                    ListGridRecord record = new ListGridRecord ();
+                    copyValues (result.get (i), record);
+                    list[i] = record;
+                }
                 response.setData (list);
                 processResponse (requestId, response);
-			}
+			}	
 		});
 	}
 	

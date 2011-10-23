@@ -1,6 +1,8 @@
 package org.polishcalendar.server;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -43,7 +45,7 @@ public class OrganizationServiceImpl extends RemoteServiceServlet
 		return org_dto;
 	}
 	@Override
-	public OrganizationDTO removeOrganization(OrganizationDTO org_dto) {
+	public void removeOrganization(OrganizationDTO org_dto) {
 		logger.debug("Executing organization remove");
 		logger.debug(org_dto.toString());
 		
@@ -56,7 +58,6 @@ public class OrganizationServiceImpl extends RemoteServiceServlet
 			session.delete(org_record);
 		}
         session.getTransaction().commit();
-		return org_dto;
 	}
 	@Override
 	public OrganizationDTO updateOrganization(OrganizationDTO org_dto) {
@@ -79,18 +80,29 @@ public class OrganizationServiceImpl extends RemoteServiceServlet
 		return org_dto;
 	}
 	@Override
-	public OrganizationDTO fetchOrganization(OrganizationDTO org_dto) {
+	public List<OrganizationDTO> fetchOrganization() {
 		logger.debug("Executing organization fetch");
-		logger.debug(org_dto.toString());
 
-		// Fetching Organization object
+		List<OrganizationDTO> output = new ArrayList<OrganizationDTO>();
+		
+		// Fetching Organization objects
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		Organization org_record = (Organization)session.load(Organization.class, org_dto.getId());
-		MappingUtils.copyValues(org_dto, org_record);
+		
+		Query q = session.createQuery("from Organization");
+		@SuppressWarnings("unchecked")
+		List<Organization> orgs = (List<Organization>)q.list();
+		
+		for (Organization org_record : orgs) {
+			OrganizationDTO org_dto = new OrganizationDTO();
+			MappingUtils.copyValues(org_dto, org_record);
+			output.add(org_dto);
+		}
+		
 		session.getTransaction().commit();
 		
-		return org_dto;
+		
+		return output;
 	}
 
 }

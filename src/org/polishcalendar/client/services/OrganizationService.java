@@ -1,5 +1,7 @@
 package org.polishcalendar.client.services;
 
+import java.util.List;
+
 import org.polishcalendar.shared.OrganizationDTO;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -9,7 +11,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface OrganizationService extends RemoteService  {
 
 	OrganizationDTO addOrganization(OrganizationDTO organization);
-	OrganizationDTO removeOrganization(OrganizationDTO organization);
+	void removeOrganization(OrganizationDTO organization);
 	OrganizationDTO updateOrganization(OrganizationDTO organization);
-	OrganizationDTO fetchOrganization(OrganizationDTO organization);
+	List<OrganizationDTO> fetchOrganization();
 }

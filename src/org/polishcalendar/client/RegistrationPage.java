@@ -13,8 +13,6 @@ import com.smartgwt.client.widgets.form.fields.events.ClickEvent;
 import com.smartgwt.client.widgets.form.fields.events.ClickHandler;  
 import com.smartgwt.client.widgets.form.validator.MatchesFieldValidator;  
 import com.smartgwt.client.widgets.form.validator.RegExpValidator;
-import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 public class RegistrationPage {
 	

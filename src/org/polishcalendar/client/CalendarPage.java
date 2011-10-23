@@ -1,36 +1,21 @@
 package org.polishcalendar.client;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.polishcalendar.client.util.AppConstants;
-import org.polishcalendar.ds.EventDataSource;
 import org.polishcalendar.ds.LocPrefDS;
-import org.polishcalendar.shared.EventDTO;
 
-import com.smartgwt.client.data.Record;
-import com.smartgwt.client.data.RecordList;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.ListGridFieldType;
-import com.smartgwt.client.types.Positioning;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.HTMLFlow;
 import com.smartgwt.client.widgets.Window;
 import com.smartgwt.client.widgets.calendar.Calendar;
-import com.smartgwt.client.widgets.calendar.events.BackgroundClickEvent;
-import com.smartgwt.client.widgets.calendar.events.BackgroundClickHandler;
-import com.smartgwt.client.widgets.calendar.events.CalendarEventClick;
-import com.smartgwt.client.widgets.calendar.events.EventClickHandler;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.events.CloseClickHandler;
 import com.smartgwt.client.widgets.events.CloseClientEvent;
-import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.ValuesManager; 
+import com.smartgwt.client.widgets.form.DynamicForm; 
 import com.smartgwt.client.widgets.form.fields.DateItem;
-import com.smartgwt.client.widgets.form.fields.FormItem;
-import com.smartgwt.client.widgets.form.fields.HeaderItem;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.form.fields.TextAreaItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
@@ -47,20 +32,6 @@ import com.smartgwt.client.widgets.tab.TabSet;
 public class CalendarPage {
 	
 	private Calendar calendar;
-
-	private static List<EventDTO> convert(RecordList list){
-		List<EventDTO> res = new LinkedList<EventDTO>();
-		
-		for(int i = 0 ; i < list.getLength(); i++){
-			EventDTO event = new EventDTO();
-			EventDataSource.getEventDS().copyValues(list.get(i), event);
-			res.add(event);
-		}
-		
-		return res;
-		
-	}
-	
 	
 	public Canvas build() {
 		

@@ -1,9 +1,12 @@
 package org.polishcalendar.server;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.polishcalendar.client.services.UserService;
 import org.polishcalendar.server.persistence.User;
@@ -41,7 +44,7 @@ public class UserServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public UserDTO removeUser(UserDTO user_dto) {
+	public void removeUser(UserDTO user_dto) {
 		logger.debug("Executing user remove");
 		logger.debug(user_dto.toString());
 		
@@ -52,8 +55,6 @@ public class UserServiceImpl extends RemoteServiceServlet implements
 			session.delete(user_record);
 		}
         session.getTransaction().commit();
-		
-		return user_dto;
 	}
 
 	@Override
@@ -77,21 +78,27 @@ public class UserServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public UserDTO fetchUser(UserDTO user_dto) {
+	public List<UserDTO> fetchUser() {
 		logger.debug("Executing user fetch");
-		logger.debug(user_dto.toString());
+		List<UserDTO> output = new ArrayList<UserDTO>();
 		
-		// Fetching User object
+		// Fetching Event object
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		User user_record = (User)session.load(User.class, user_dto.getId());
 		
-		if (user_record != null) {
+		Query q = session.createQuery("from User");
+		@SuppressWarnings("unchecked")
+		List<User> users = (List<User>)q.list();
+		
+		for (User user_record : users) {
+			UserDTO user_dto = new UserDTO();
 			MappingUtils.copyValues(user_dto, user_record);
+			output.add(user_dto);
 		}
+		
 		session.getTransaction().commit();
 		
-		return user_dto;
+		return output;
 	}
 
 }

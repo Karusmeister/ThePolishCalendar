@@ -1,8 +1,5 @@
 package org.polishcalendar.client;
 
-
-import org.polishcalendar.client.util.AppConstants;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.util.Page;
