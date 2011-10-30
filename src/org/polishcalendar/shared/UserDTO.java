@@ -8,7 +8,8 @@ public class UserDTO implements Serializable {
 	private static final long serialVersionUID = -5524445671708778042L;
 	
 	private int id;
-	private String name;
+	private String password;
+	private String email;
 	private Date joinedDate;
 	private String type;
 	
@@ -26,12 +27,20 @@ public class UserDTO implements Serializable {
 		return id;
 	}
 
-	public String getName() {
-		return name;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Date getJoinedDate() {
@@ -78,7 +87,7 @@ public class UserDTO implements Serializable {
 	public String toString() {
 		return (" UserDTO: " + 
 			    " id: " + id +
-			    " name: " + name + 
+			    " email: " + email + 
 			    " joinedDate: " + joinedDate + 
 			    " type: " + type);
 	}

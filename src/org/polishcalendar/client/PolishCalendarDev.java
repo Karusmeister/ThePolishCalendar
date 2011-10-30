@@ -15,11 +15,11 @@ public class PolishCalendarDev implements EntryPoint {
 	
 	public void onModuleLoad() {
 		
-		DBTestPanel shortcutWindow = new DBTestPanel(); 
-		Canvas content = shortcutWindow.build();
+		//DBTestPanel shortcutWindow = new DBTestPanel(); 
+		//Canvas content = shortcutWindow.build();
 		
-		//LoginPage loginPage = new LoginPage();
-		//Canvas content = loginPage.buildLoginPage();
+		LoginPage loginPage = new LoginPage();
+		Canvas content = loginPage.buildLoginPage();
 		
 		//SearchPage search_page = new SearchPage();
 		//Canvas content = search_page.build();

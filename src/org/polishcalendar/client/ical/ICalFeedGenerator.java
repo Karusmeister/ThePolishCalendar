@@ -1,5 +1,5 @@
 package org.polishcalendar.client.ical;
-
+/*
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -46,3 +46,4 @@ public class ICalFeedGenerator implements IEventSaver {
 		return s;
 	}
 }
+*/

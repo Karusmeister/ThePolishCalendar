@@ -8,8 +8,9 @@
         <id name="id" column="USER_ID">
             <generator class="native"/>
         </id>
-        <property name="name"/>
+        <property name="email"/>
         <property name="type"/>
+        <property name="password"/>
         <property type="date" name="joinedDate"/> 
         
         <set name="events" table="ATTENDING_USERS" inverse="true">

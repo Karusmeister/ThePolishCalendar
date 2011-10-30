@@ -57,11 +57,12 @@ public class PreferencesPage {
 		return output;
 	}
 	
+	
 	private Layout buildTopPanel() {
 		return (new TopPanel()).build();
 	}
 	
-	private Layout buildMainPanel() {
+	public Layout buildMainPanel() {
 		VLayout output = new VLayout();
 		
 		// Building main tabs component

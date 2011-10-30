@@ -11,10 +11,13 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
+import com.smartgwt.client.data.Record;
 import com.smartgwt.client.data.fields.DataSourceDateField;
 import com.smartgwt.client.data.fields.DataSourceIntegerField;
+import com.smartgwt.client.data.fields.DataSourcePasswordField;
 import com.smartgwt.client.data.fields.DataSourceTextField;
 import com.smartgwt.client.rpc.RPCResponse;
+import com.smartgwt.client.widgets.form.validator.RegExpValidator;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
 public class UserDataSource extends GwtRpcDataSource {
@@ -33,18 +36,27 @@ public class UserDataSource extends GwtRpcDataSource {
 		
 		DataSourceIntegerField id_f = new DataSourceIntegerField("id");
 		id_f.setPrimaryKey(true);
-		id_f.setHidden(true);
+		//id_f.setHidden(true);
 		
-		DataSourceTextField name_f = new DataSourceTextField("name");
-		name_f.setRequired(true);
+		DataSourceTextField email_f = new DataSourceTextField("email");
+		email_f.setRequired(true);
+        RegExpValidator email_validator = new RegExpValidator();  
+        email_validator.setErrorMessage("Invalid email address");  
+        email_validator.setExpression("^([a-zA-Z0-9_.\\-+])+@(([a-zA-Z0-9\\-])+\\.)+[a-zA-Z0-9]{2,4}$"); 
+        email_f.setValidators(email_validator);
+		
+		DataSourcePasswordField password_f = new DataSourcePasswordField("password");
+		password_f.setRequired(true);
 		
 		DataSourceDateField joinedDate_f = new DataSourceDateField("joinedDate");
 		joinedDate_f.setRequired(true);
+		//joinedDate_f.setHidden(true);
 		
 		DataSourceTextField type_f = new DataSourceTextField("type");
 		type_f.setRequired(true);
+		//type_f.setHidden(true);
 		
-		setFields(id_f , name_f , joinedDate_f , type_f);
+		setFields(id_f , email_f , password_f , joinedDate_f , type_f);
 	}
 
 	@Override
@@ -114,7 +126,7 @@ public class UserDataSource extends GwtRpcDataSource {
 		
 		// retriving record
 		JavaScriptObject js_data = request.getData();
-		ListGridRecord event_record = new ListGridRecord(js_data);
+		Record event_record = new Record(js_data);
 		UserDTO user = new UserDTO();
 		copyValues(event_record, user);
 		
@@ -170,18 +182,20 @@ public class UserDataSource extends GwtRpcDataSource {
 	}
 	
 	
-	private void copyValues(UserDTO from, ListGridRecord to) {
+	private void copyValues(UserDTO from, Record to) {
 		to.setAttribute("id", from.getId());
-		to.setAttribute("name", from.getName());
+		to.setAttribute("email", from.getEmail());
+		to.setAttribute("password", from.getPassword());
 		to.setAttribute("joinedDate", from.getJoinedDate());
 		to.setAttribute("type", from.getType());
 	}
 	
-	private void copyValues(ListGridRecord from, UserDTO to) {
-		to.setName(from.getAttributeAsString("name"));
-		to.setId(from.getAttributeAsInt("id"));
+	private void copyValues(Record from, UserDTO to) {
+		to.setEmail(from.getAttributeAsString("email"));
+		to.setPassword(from.getAttributeAsString("password"));
 		to.setJoinedDate(from.getAttributeAsDate("joinedDate"));
 		to.setType(from.getAttributeAsString("type"));
+		to.setId(from.getAttributeAsInt("id"));
 	}
 
 }

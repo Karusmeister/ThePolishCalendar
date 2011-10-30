@@ -1,5 +1,6 @@
 package org.polishcalendar.client;
 
+
 import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.Button;

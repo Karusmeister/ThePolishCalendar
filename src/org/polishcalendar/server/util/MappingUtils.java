@@ -66,14 +66,16 @@ public class MappingUtils {
 	public static void copyValues(UserDTO to, User from) {
 		to.setId(from.getId());
 		to.setJoinedDate(from.getJoinedDate());
-		to.setName(from.getName());
+		to.setEmail(from.getEmail());
+		to.setPassword(from.getPassword());
 		to.setType(from.getType());
 	}
 	
 	public static void copyValues(User to, UserDTO from) {
 		//to.setId(from.getId());
 		to.setJoinedDate(from.getJoinedDate());
-		to.setName(from.getName());
+		to.setEmail(from.getEmail());
+		to.setPassword(from.getPassword());
 		to.setType(from.getType());
 	}
 	

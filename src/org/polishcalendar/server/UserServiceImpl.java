@@ -59,7 +59,7 @@ public class UserServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public UserDTO updateUser(UserDTO user_dto) {
-		logger.debug("Executing user remove");
+		logger.debug("Executing user update");
 		logger.debug(user_dto.toString());
 		
 		// Fetching User object
