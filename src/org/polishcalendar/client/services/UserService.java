@@ -10,8 +10,12 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath ("user")
 public interface UserService extends RemoteService {
 
+	// Crud for datasource
 	UserDTO addUser(UserDTO user);
 	void removeUser(UserDTO user);
 	UserDTO updateUser(UserDTO user);
-	List<UserDTO> fetchUser();
+	List<UserDTO> fetchUsers();
+	
+	// Additional services
+	boolean checkUserPassword(String email, String password);
 }

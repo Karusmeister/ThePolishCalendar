@@ -14,9 +14,11 @@ import com.smartgwt.client.widgets.form.fields.CheckboxItem;
 import com.smartgwt.client.widgets.form.fields.HeaderItem;  
 import com.smartgwt.client.widgets.form.fields.HiddenItem;
 import com.smartgwt.client.widgets.form.fields.PasswordItem;  
+import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.events.ClickEvent;  
 import com.smartgwt.client.widgets.form.fields.events.ClickHandler;  
 import com.smartgwt.client.widgets.form.validator.MatchesFieldValidator;  
+import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -32,14 +34,17 @@ public class RegistrationPage {
 	
 	public Canvas buildRegistrationForm()
 	{
-        DataSource dataSource = UserDataSource.getUserDS();
+		
+		Layout output = new VLayout();
+		
+        DataSource dataSource = new DataSource();
 
         form = new DynamicForm();  
         form.setDataSource(dataSource);  
         form.setUseAllDataSourceFields(true);
   
         HeaderItem header = new HeaderItem();  
-        header.setDefaultValue("Registration Form");  
+        header.setDefaultValue("Registration Form"); 
   
         PasswordItem passwordItem = new PasswordItem();  
         passwordItem.setName("password");  
@@ -81,39 +86,47 @@ public class RegistrationPage {
         validateItem.addClickHandler(new ClickHandler() {  
             public void onClick(ClickEvent event) {  
                if (form.validate(true)) { 
+            	   // Note, submiting record instead of doing form.submit()
+            	   // form.submit would cause datasource.executeUpdate() and we
+            	   // want datasource.executeAdd() instead.
    				   form.getDataSource().addData(form.getValuesAsRecord());
             	   PolishCalendarDev.replaceOutmostContent(createPreferencesSetUp());
                }
             }  
         });  
-        
-        
-        ButtonItem registerOrg= new ButtonItem();
-        registerOrg.setTitle("Register Organisation");
-        registerOrg.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				PolishCalendarDev.replaceOutmostContent((new OrganisationRegistration()).buildOrganisationRegistration());	
-			}
-		});
-        
-        
-        ButtonItem backTologinPage = new ButtonItem("Back");
-        backTologinPage.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				PolishCalendarDev.replaceOutmostContent((new LoginPage()).buildLoginPage());			
-			}
-		});
-  
- 
+
         form.setFields(header, passwordItem, passwordItem2, acceptItem, id_item, 
-        		date_item , type_item , validateItem);
-               
-              
-        return form;  
+        		date_item , type_item , validateItem); 
+        output.addMember(form);
+        
+        HLayout buttons = new HLayout();
+        
+        Button registerOrg= new Button();
+        registerOrg.setTitle("Register Organisation");
+        registerOrg.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+			@Override
+			public void onClick(
+					com.smartgwt.client.widgets.events.ClickEvent event) {
+				OrganisationRegistration org_reg = new OrganisationRegistration();
+				PolishCalendarDev.replaceOutmostContent(org_reg.buildOrganisationRegistration());
+			}
+		});
+        buttons.addMember(registerOrg);
+        
+        Button backToLoginPage = new Button("Back");
+        backToLoginPage.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+			@Override
+			public void onClick(
+					com.smartgwt.client.widgets.events.ClickEvent event) {
+				LoginPage page = new LoginPage();
+				PolishCalendarDev.replaceOutmostContent(page.buildLoginPage());
+			}
+		});
+        buttons.addMember(backToLoginPage);
+        
+        output.addMember(buttons);
+        
+        return output;
     } 
 	
 	

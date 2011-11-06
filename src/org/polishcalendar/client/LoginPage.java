@@ -1,7 +1,12 @@
 package org.polishcalendar.client;
 
 
+import org.polishcalendar.client.services.UserService;
+import org.polishcalendar.client.services.UserServiceAsync;
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Canvas;  
@@ -19,7 +24,7 @@ public class LoginPage {
 	public Canvas buildLoginPage() {
 		
 		Canvas top_panel = buildTopPanel();
-		Canvas bottom_panel = buildBottomPanel();
+		//Canvas bottom_panel = buildBottomPanel();
 		Canvas main_panel = buildMainPanel();
 		
 		VLayout output = new VLayout();
@@ -42,8 +47,6 @@ public class LoginPage {
 		Button reg_button = new Button("Register");
 		Button contact_button = new Button("Contact us");
 		
-		// Each button would stretch for stretch% of available width
-		String stretch = "25%";
 		//reg_button.setWidth(stretch);  
 		reg_button.setShowRollOver(true);  
 		reg_button.setShowDisabled(true);  
@@ -78,7 +81,7 @@ public class LoginPage {
         HeaderItem header = new HeaderItem();  
         header.setDefaultValue("Login Form");  
   
-        TextItem loginItem = new TextItem("login");
+        final TextItem loginItem = new TextItem("login");
         loginItem.setTitle("Login");
         
         final PasswordItem passwordItem = new PasswordItem("password");
@@ -96,15 +99,28 @@ public class LoginPage {
 			@Override
 			public void onClick(ClickEvent event) {
 				String input_password = passwordItem.getValueAsString();
-				if (input_password != null && 
-						input_password.equals(MockData.getValidUser().getPassword())) {
-					CalendarPage calendar_page = new CalendarPage();
-					Canvas content = calendar_page.build();
-					PolishCalendarDev.replaceOutmostContent(content);
-				}
-				else {
-					Window.alert("Incorrect password!");
-				}
+				String input_email = loginItem.getValueAsString();
+				
+				UserServiceAsync service = GWT.create (UserService.class);
+				service.checkUserPassword(input_email, input_password, new AsyncCallback<Boolean>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("User name or password are incorrect");
+					}
+
+					@Override
+					public void onSuccess(Boolean result) {
+						if (!result) {
+							Window.alert("Incorrect password!");
+						}
+						else {
+							CalendarPage calendar_page = new CalendarPage();
+							Canvas content = calendar_page.build();
+							PolishCalendarDev.replaceOutmostContent(content);
+						}
+					}	
+				});
 			}
 		});
 		
@@ -145,6 +161,7 @@ public class LoginPage {
         return main_layout;  
     }  
 	
+	@SuppressWarnings("unused")
 	private Canvas buildBottomPanel() {
 		return null;
 	}

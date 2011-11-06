@@ -78,11 +78,11 @@ public class UserServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public List<UserDTO> fetchUser() {
+	public List<UserDTO> fetchUsers() {
 		logger.debug("Executing user fetch");
 		List<UserDTO> output = new ArrayList<UserDTO>();
 		
-		// Fetching Event object
+		// Fetching User object
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		
@@ -99,6 +99,25 @@ public class UserServiceImpl extends RemoteServiceServlet implements
 		session.getTransaction().commit();
 		
 		return output;
+	}
+
+	@Override
+	public boolean checkUserPassword(String email, String password) {
+		logger.debug("Add single user called with parameter {} , {}" , email , password);
+
+		// Fetching User object
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		Query q = session.createQuery("from User where email = :email");
+		q.setParameter("email", email);
+		
+		User user = (User)q.uniqueResult();
+		String stored_password = null;
+		if (user != null) {
+			stored_password = user.getPassword();
+		}
+		
+		return password.equals(stored_password);
 	}
 
 }

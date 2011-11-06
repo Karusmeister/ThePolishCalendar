@@ -159,7 +159,7 @@ public class UserDataSource extends GwtRpcDataSource {
 		
 		// creating service
 		UserServiceAsync service = GWT.create (UserService.class);
-		service.fetchUser(new AsyncCallback<List<UserDTO>>() {
+		service.fetchUsers(new AsyncCallback<List<UserDTO>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
