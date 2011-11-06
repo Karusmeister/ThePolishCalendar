@@ -1,7 +1,8 @@
 package org.polishcalendar.translators;
 
-public interface Translator<T1, T2> {
+public interface Translator<Source, Target> {
 	
-	public T2 translate(T1 source);
+	public Target translate(Source source);
 
+	public Source translateBack(Target source);
 }

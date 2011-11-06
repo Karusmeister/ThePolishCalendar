@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.polishcalendar.client.services.EventService;
 import org.polishcalendar.client.services.EventServiceAsync;
+import org.polishcalendar.server.persistence.Event;
 import org.polishcalendar.shared.EventDTO;
+import org.polishcalendar.translators.Builder;
+import org.polishcalendar.translators.ClassDescriptor;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
@@ -20,42 +23,12 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 
 public class EventDataSource extends GwtRpcDataSource {
 
-	private static EventDataSource event_ds = null;
+	private Builder<Event, GwtRpcDataSource> _builder;
 	
-	public static EventDataSource getEventDS() {
-		if (event_ds == null) {
-			event_ds = new EventDataSource("eventDS");
-		}
-		return event_ds;
-	}
-	
-	private EventDataSource (String id) {
+	public EventDataSource(String id, Builder<Event,GwtRpcDataSource> builder){
 		setID(id);
-		
-		DataSourceIntegerField index_f = new DataSourceIntegerField("id");
-		index_f.setPrimaryKey(true);
-		index_f.setHidden(true);
-		
-		DataSourceTextField name_f =  new DataSourceTextField("name");
-		name_f.setRequired(true);
-		
-		DataSourceTextField location_f = new DataSourceTextField("location");
-		location_f.setRequired(true);
-		
-		DataSourceIntegerField attendeesNumber_f = new DataSourceIntegerField("attendeesNumber");
-		attendeesNumber_f.setRequired(true);
-		
-		DataSourceDateField startDate_f = new DataSourceDateField("startDate");
-		startDate_f.setRequired(true);
-		
-		DataSourceTextField organizationName_f = new DataSourceTextField("organizationName");
-		organizationName_f.setRequired(true);
-		
-		// TODO
-		// Should we also add support for associations in DTOs?
-		
-		setFields(index_f , name_f , location_f , attendeesNumber_f , 
-				startDate_f , organizationName_f);
+		_builder = builder;
+		_builder.build(this);
 	}
 
 	@Override
@@ -178,20 +151,20 @@ public class EventDataSource extends GwtRpcDataSource {
 	
 	/* Copy values between ListGridRecord for view and EventDTO. */
 	public void copyValues(Record from, EventDTO to) {
-		to.setName(from.getAttributeAsString("name"));
-		to.setId(from.getAttributeAsInt("id"));
-		to.setLocation(from.getAttributeAsString("location"));
-		to.setAttendeesNumber(from.getAttributeAsInt("attendeesNumber"));
-		to.setStartDate(from.getAttributeAsDate("startDate"));
-		to.setOrganizationName(from.getAttributeAsString("organizationName"));
+		to.setName(from.getAttributeAsString("Name"));
+		to.setId(from.getAttributeAsInt("Id"));
+		to.setLocation(from.getAttributeAsString("Location"));
+		to.setAttendeesNumber(from.getAttributeAsInt("AttendeesNumber"));
+		to.setStartDate(from.getAttributeAsDate("StartDate"));
+		to.setOrganizationName(from.getAttributeAsString("OrganizationName"));
 	}
 	
 	public void copyValues(EventDTO from, Record to) {
-		to.setAttribute("id", from.getId());
-		to.setAttribute("name", from.getName());
-		to.setAttribute("location", from.getLocation());
-		to.setAttribute("attendeesNumber", from.getAttendeesNumber());
-		to.setAttribute("startDate", from.getStartDate());
-		to.setAttribute("organizationName", from.getOrganizationName());
+		to.setAttribute("Id", from.getId());
+		to.setAttribute("Name", from.getName());
+		to.setAttribute("Location", from.getLocation());
+		to.setAttribute("AttendeesNumber", from.getAttendeesNumber());
+		to.setAttribute("StartDate", from.getStartDate());
+		to.setAttribute("OrganizationName", from.getOrganizationName());
 	}
 }

@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import org.polishcalendar.server.persistence.annotations.Hidden;
 
+import com.gwtent.reflection.client.Reflectable;
+
+@Reflectable
 public class Event implements Serializable{
 
 	private static final long serialVersionUID = 7529922952278235792L;
@@ -20,7 +24,7 @@ public class Event implements Serializable{
 	private Organization organization;
 	
 	//TODO many-to-many with attending users
-	
+	@Hidden
 	public Integer getId() {
 		return id;
 	}

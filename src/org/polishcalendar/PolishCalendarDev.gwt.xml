@@ -23,5 +23,6 @@
   <source path='shared'/>
   <source path='ds'/>
   <source path='translators'/>
+  <source path='server/persistence'/>
 
 </module>

@@ -3,6 +3,8 @@ package org.polishcalendar.server.persistence;
 import java.util.Date;
 import java.util.Set;
 
+import com.gwtent.reflection.client.Reflectable;
+@Reflectable
 public class Organization {
 
 	private int id;

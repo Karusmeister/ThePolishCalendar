@@ -1,9 +1,14 @@
 package org.polishcalendar.client;
 
 
+import org.polishcalendar.ds.DataSourceBuilder;
 import org.polishcalendar.ds.EventDataSource;
+import org.polishcalendar.ds.GwtRpcDataSource;
 import org.polishcalendar.ds.OrganizationDataSource;
 import org.polishcalendar.ds.UserDataSource;
+import org.polishcalendar.server.persistence.Event;
+import org.polishcalendar.translators.Builder;
+import org.polishcalendar.translators.ClassDescriptor;
 
 import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
@@ -49,7 +54,9 @@ public class DBTestPanel {
 		my_events_b.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-		        DataSource events_ds = EventDataSource.getEventDS();
+				Builder<Event, GwtRpcDataSource> builder = new DataSourceBuilder<Event>(
+						new ClassDescriptor<Event>(Event.class));
+		        DataSource events_ds = new EventDataSource("EventDs", builder);
 				Canvas content = buildWindowContent(events_ds);
 				buildWindow(content).show();
 			}
