@@ -36,7 +36,7 @@ public class UserDataSource extends GwtRpcDataSource {
 		
 		DataSourceIntegerField id_f = new DataSourceIntegerField("id");
 		id_f.setPrimaryKey(true);
-		//id_f.setHidden(true);
+		id_f.setHidden(true);
 		
 		DataSourceTextField email_f = new DataSourceTextField("email");
 		email_f.setRequired(true);
@@ -50,11 +50,11 @@ public class UserDataSource extends GwtRpcDataSource {
 		
 		DataSourceDateField joinedDate_f = new DataSourceDateField("joinedDate");
 		joinedDate_f.setRequired(true);
-		//joinedDate_f.setHidden(true);
+		joinedDate_f.setHidden(true);
 		
 		DataSourceTextField type_f = new DataSourceTextField("type");
 		type_f.setRequired(true);
-		//type_f.setHidden(true);
+		type_f.setHidden(true);
 		
 		setFields(id_f , email_f , password_f , joinedDate_f , type_f);
 	}

@@ -13,6 +13,7 @@
 
   <!-- Other module inherits                                      -->
   <inherits name="com.smartgwt.SmartGwt"/>
+  <inherits name="com.gwtent.GwtEnt"/>
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='org.polishcalendar.client.PolishCalendarDev'/>
@@ -21,5 +22,6 @@
   <source path='client'/>
   <source path='shared'/>
   <source path='ds'/>
+  <source path='translators'/>
 
 </module>
